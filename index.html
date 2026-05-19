@@ -494,7 +494,7 @@ const lineData = perdiem.filter(d=>topSix.includes(d.country));
 vegaEmbed('#chart1', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:arrivals},
-  width:"container", height:280,
+  width:600, height:280,
   mark:{type:'line',point:{filled:true,size:50},color:GOLD,strokeWidth:2.5},
   encoding:{
     x:{field:'year',type:'ordinal',axis:{labelAngle:-45,title:'Year'}},
@@ -509,7 +509,7 @@ const avg2017 = perdiem.filter(d=>d.year===2017).sort((a,b)=>b.spend-a.spend);
 vegaEmbed('#chart2', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:avg2017},
-  width:"container", height:320,
+  width:600, height:320,
   mark:{type:'bar',color:GOLD},
   encoding:{
     y:{field:'country',type:'nominal',sort:'-x',axis:{title:null}},
@@ -524,7 +524,7 @@ vegaEmbed('#chart2', {
 vegaEmbed('#chart3', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:lineData},
-  width:"container", height:280,
+  width:600, height:280,
   mark:{type:'line',point:true,strokeWidth:2},
   encoding:{
     x:{field:'year',type:'ordinal',axis:{title:'Year'}},
@@ -539,7 +539,7 @@ vegaEmbed('#chart3', {
 vegaEmbed('#chart4', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:perdiem},
-  width:"container", height:320,
+  width:600, height:320,
   mark:'rect',
   encoding:{
     x:{field:'year',type:'ordinal',axis:{title:'Year'}},
@@ -554,7 +554,7 @@ vegaEmbed('#chart4', {
 vegaEmbed('#chart5', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:occupation2016},
-  width:"container", height:300,
+  width:600, height:300,
   mark:{type:'bar',color:DEEP},
   encoding:{
     y:{field:'occupation',type:'nominal',sort:'-x',axis:{title:null}},
@@ -583,7 +583,7 @@ vegaEmbed('#chart6', {
 vegaEmbed('#chart7', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:occupCompare},
-  width:"container", height:260,
+  width:600, height:260,
   mark:'bar',
   encoding:{
     x:{field:'occupation',type:'nominal',axis:{title:null,labelAngle:-25}},
@@ -598,7 +598,7 @@ vegaEmbed('#chart7', {
 // ── CHART 8: World map ──
 vegaEmbed('#chart8', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:"container", height:380,
+  width:600, height:380,
   layer:[
     {
       data:{url:'https://raw.githubusercontent.com/vega/vega/master/packages/vega-loader/test/data/world-110m.json',
@@ -625,7 +625,7 @@ vegaEmbed('#chart8', {
 vegaEmbed('#chart9', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:scatter2017},
-  width:"container", height:280,
+  width:600, height:280,
   mark:{type:'point',filled:true,size:100,opacity:0.8},
   encoding:{
     x:{field:'rank',type:'quantitative',axis:{title:'Market Rank (1 = most common)'}},
@@ -640,7 +640,7 @@ vegaEmbed('#chart9', {
 vegaEmbed('#chart10', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
   data:{values:arrivals},
-  width:"container", height:280,
+  width:600, height:280,
   mark:{type:'area',color:GOLD,opacity:0.7,line:{color:GOLD,strokeWidth:2}},
   encoding:{
     x:{field:'year',type:'ordinal',axis:{labelAngle:-45,title:'Year'}},
