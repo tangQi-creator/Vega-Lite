@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Malaysia Tourism: The Journey of a Nation</title>
+<title>Malaysia Tourism: Who comes, who spends, and what we lost</title>
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #C9A84C;
@@ -26,7 +25,7 @@
     font-family: 'Source Sans 3', sans-serif;
     font-weight: 300;
   }
- 
+
   /* HERO */
   .hero {
     background: var(--deep);
@@ -56,7 +55,7 @@
     line-height: 1.1;
     margin-bottom: 20px;
   }
-  .hero h1 span { color: var(--gold); }
+  .hero h1 span { color: var(--gold); font-style: italic; }
   .hero p {
     max-width: 640px;
     margin: 0 auto;
@@ -85,10 +84,10 @@
     text-transform: uppercase;
     color: rgba(255,255,255,0.5);
   }
- 
+
   /* LAYOUT */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
- 
+
   .section {
     padding: 60px 0;
   }
@@ -112,7 +111,7 @@
     max-width: 680px;
     margin-bottom: 32px;
   }
- 
+
   /* DIVIDER */
   .divider {
     border: none;
@@ -120,7 +119,7 @@
     background: linear-gradient(to right, transparent, var(--gold), transparent);
     margin: 0;
   }
- 
+
   /* CHART CARDS */
   .chart-card {
     background: var(--card);
@@ -141,7 +140,7 @@
     margin-bottom: 16px;
     line-height: 1.6;
   }
- 
+
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -151,7 +150,7 @@
     .grid-2 { grid-template-columns: 1fr; }
     .hero-stats { gap: 30px; }
   }
- 
+
   /* STORY BLOCK */
   .story-block {
     background: var(--deep);
@@ -172,7 +171,7 @@
     color: rgba(255,255,255,0.8);
     font-size: 0.95rem;
   }
- 
+
   /* INSIGHT CALLOUT */
   .insight {
     display: flex;
@@ -187,7 +186,7 @@
   .insight-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
   .insight p { font-size: 0.9rem; line-height: 1.7; color: var(--text); }
   .insight strong { color: var(--red); }
- 
+
   /* FOOTER */
   footer {
     background: var(--deep);
@@ -201,13 +200,13 @@
 </style>
 </head>
 <body>
- 
+
 <!-- HERO -->
 <div class="hero">
   <div style="position:relative">
     <p class="hero-tag">FIT2179 · Data Visualisation 2 · 2026</p>
-    <h1>Malaysia Tourism:<br><span>The Journey of a Nation</span></h1>
-    <p>From a modest destination to one of Southeast Asia's most visited countries — exploring three decades of international tourism in Malaysia, who comes, how much they spend, and what drives them here.</p>
+    <h1>Malaysia Tourism:<br><span>Who comes, who spends, and what we lost</span></h1>
+    <p>Three decades of chasing arrival numbers brought Malaysia 27.4 million tourists at its peak. Then the pandemic hit, and arrivals collapsed to just 4.3 million. This isn't a story about recovery — it's about what the numbers actually tell us when we stop and look.</p>
     <div class="hero-stats">
       <div class="hero-stat"><span class="num">27.4M</span><span class="lbl">Peak Arrivals (2015)</span></div>
       <div class="hero-stat"><span class="num">RM912</span><span class="lbl">Highest Avg Daily Spend</span></div>
@@ -216,146 +215,146 @@
     </div>
   </div>
 </div>
- 
+
 <!-- SECTION 1: ARRIVALS TREND -->
 <div class="section">
   <div class="container">
     <p class="section-label">Chapter 1</p>
-    <h2>Three Decades of Growth</h2>
-    <p class="intro">International tourist arrivals in Malaysia grew from under 8 million in 1996 to a peak of 27.4 million in 2015 — a testament to the country's successful tourism campaigns and improved infrastructure. The COVID-19 pandemic brought an abrupt and devastating halt to this growth.</p>
- 
+    <h2>The growth we took for granted</h2>
+    <p class="intro">From 7.5 million arrivals in 1996 to over 27 million two decades later, the trend line went in one direction for a very long time. Campaigns like Visit Malaysia Year papered over the dips, but nothing prepared the industry for what happened in 2021.</p>
+
     <div class="insight">
       <span class="insight-icon">📌</span>
-      <p>Malaysia saw <strong>consistent growth</strong> through the 2000s, doubling arrivals from 2000 to 2008. The <strong>2020–2021 collapse</strong> erased nearly two decades of growth in a single year as borders closed globally.</p>
+      <p>The climb from 2000 to 2008 doubled arrival numbers. That's impressive. But what stings is the <strong>2021 figure: 4.3 million</strong> — a number we hadn't seen since the late 1990s. Two decades of work, gone in a single year.</p>
     </div>
- 
+
     <div class="chart-card">
       <h3>International Tourist Arrivals to Malaysia (1996–2021)</h3>
-      <p class="chart-note">Number of inbound international tourists per year. The sharp drop in 2021 reflects COVID-19 border closures.</p>
+      <p class="chart-note">Each point represents a year. The line tells a story that budgets and boardrooms don't want to hear.</p>
       <div id="chart1"></div>
     </div>
- 
+
     <div class="story-block">
-      <h3>The Visit Malaysia Campaigns</h3>
-      <p>Malaysia launched its landmark "Visit Malaysia Year" campaigns in 1990, 1994, 2007, and 2014. Each campaign was followed by a surge in arrivals. The 2003 dip reflects the SARS outbreak impact on regional travel, while 2009 saw a surprising resilience despite the global financial crisis — partly due to domestic tourism stimulus and continued ASEAN connectivity.</p>
+      <h3>The campaigns papered over the cracks</h3>
+      <p>Visit Malaysia Year campaigns in 1990, 1994, 2007, and 2014 all did their job — arrivals spiked. But look closely at 2003 (SARS) and 2009 (global financial crisis). The dips were real, but ASEAN travellers kept coming. Neighbouring markets saved us more than once. The question is: did we build loyalty, or just benefit from geography?</p>
     </div>
   </div>
 </div>
- 
+
 <hr class="divider">
- 
+
 <!-- SECTION 2: SOURCE MARKETS -->
 <div class="section">
   <div class="container">
     <p class="section-label">Chapter 2</p>
-    <h2>Who Visits Malaysia?</h2>
-    <p class="intro">Malaysia's tourism is dominated by its ASEAN neighbours, particularly Singapore, which consistently sends the most visitors. Understanding the source markets helps tourism planners allocate marketing budgets effectively.</p>
- 
+    <h2>Not all tourists spend the same</h2>
+    <p class="intro">Singapore sends the most visitors by far. But when you look at daily spend, the picture shifts. Some markets drop a lot more ringgit per day — and we've been ignoring them.</p>
+
     <div class="grid-2">
       <div class="chart-card">
-        <h3>Average Daily Spend by Country (2015–2017)</h3>
-        <p class="chart-note">Average per diem expenditure (RM) by tourists' country of nationality. Brunei and Saudi Arabia tourists spend the most per day.</p>
+        <h3>Who actually spends? (2015–2017 average)</h3>
+        <p class="chart-note">Brunei and Saudi Arabia top the list. Singapore, our biggest market by volume, sits mid-table.</p>
         <div id="chart2"></div>
       </div>
       <div class="chart-card">
-        <h3>Spending Trends: Top 6 Markets (2015–2017)</h3>
-        <p class="chart-note">How daily expenditure changed across three years for the six highest-spending source countries.</p>
+        <h3>The big spenders, year by year</h3>
+        <p class="chart-note">Six markets that consistently outspend the rest. Saudi Arabia cracked RM1,000/day in 2017.</p>
         <div id="chart3"></div>
       </div>
     </div>
- 
+
     <div class="insight">
       <span class="insight-icon">💡</span>
-      <p><strong>Brunei</strong> tourists spend nearly 3× more per day than Thai tourists, yet Malaysia's marketing has historically focused on volume over value. <strong>Middle Eastern visitors</strong> (Saudi Arabia) are the second highest spenders, suggesting strong potential in targeting Gulf markets.</p>
+      <p>Here's the uncomfortable truth: a tourist from <strong>Brunei spends nearly three times what a Thai tourist spends</strong> per day. But our marketing has historically chased volume from ASEAN. Meanwhile, <strong>Saudi Arabian visitors hit RM1,069.95/day in 2017</strong>. There's a Gulf-shaped gap in our strategy.</p>
     </div>
- 
+
     <div class="chart-card">
-      <h3>Spending Heatmap: Country vs Year (RM per day)</h3>
-      <p class="chart-note">Each cell shows average daily tourist spending (RM). Darker blue = higher spend. Note the variation across years and markets.</p>
+      <h3>Spending patterns across 20 markets (2015–2017)</h3>
+      <p class="chart-note">Darker cells show higher daily spend. Some markets are consistently dark; others barely register.</p>
       <div id="chart4"></div>
     </div>
   </div>
 </div>
- 
+
 <hr class="divider">
- 
+
 <!-- SECTION 3: TOURIST PROFILE -->
 <div class="section">
   <div class="container">
     <p class="section-label">Chapter 3</p>
-    <h2>Who Is the Malaysian Tourist?</h2>
-    <p class="intro">Beyond numbers, understanding the demographic profile of visitors reveals what kinds of experiences Malaysia should develop and promote. Occupation and travel companion patterns paint a vivid picture of the typical visitor.</p>
- 
+    <h2>A portrait of the people who come</h2>
+    <p class="intro">Numbers are abstract. The people behind them — their jobs, who they travel with — tell us what kind of destination Malaysia actually is, as opposed to what we market it as.</p>
+
     <div class="grid-2">
       <div class="chart-card">
-        <h3>Tourist Occupation Profile (2016)</h3>
-        <p class="chart-note">Percentage of international tourists by occupation group. Professionals and managers make up nearly half of all visitors.</p>
+        <h3>What do they do for a living? (2016)</h3>
+        <p class="chart-note">Professionals and managers alone make up nearly half of all visitors. Manual workers? Barely 2.6%.</p>
         <div id="chart5"></div>
       </div>
       <div class="chart-card">
-        <h3>How Tourists Travel: Companion Type (2016)</h3>
-        <p class="chart-note">Breakdown of how tourists travel to Malaysia — alone, with spouse, family, or friends.</p>
+        <h3>Who do they bring with them?</h3>
+        <p class="chart-note">Over 58% travel with a spouse or family. Solo travellers are a distant fourth.</p>
         <div id="chart6"></div>
       </div>
     </div>
- 
+
     <div class="chart-card">
-      <h3>Occupation Profile: 2016 vs 2017</h3>
-      <p class="chart-note">Grouped bar chart comparing the top occupation categories across two years. Professionals consistently dominate.</p>
+      <h3>Same jobs, different year (2016 vs 2017)</h3>
+      <p class="chart-note">The professional class dominates both years, but management dropped noticeably in 2017 — from 23.5% to 16.3%.</p>
       <div id="chart7"></div>
     </div>
   </div>
 </div>
- 
+
 <hr class="divider">
- 
+
 <!-- SECTION 4: GEOGRAPHIC MAP -->
 <div class="section">
   <div class="container">
     <p class="section-label">Chapter 4</p>
-    <h2>A World Map of Visitors</h2>
-    <p class="intro">Where in the world do Malaysia's tourists come from? This map visualises the geographic spread of the 20 key source markets by their average daily spending in Malaysia, revealing regional spending patterns.</p>
- 
+    <h2>Draw a circle around ASEAN</h2>
+    <p class="intro">Malaysia's tourism map isn't global — it's regional. The big spenders might sit further away, but the sheer weight of arrivals comes from next door.</p>
+
     <div class="chart-card">
-      <h3>Source Countries by Average Daily Spending (2017)</h3>
-      <p class="chart-note">Circle size and colour represent average daily tourist expenditure (RM) in Malaysia. Hover over circles for details.</p>
+      <h3>Where the money comes from (2017 daily spend, mapped)</h3>
+      <p class="chart-note">Circle size and colour show spending power. Notice where the dark, large circles cluster.</p>
       <div id="chart8"></div>
     </div>
- 
+
     <div class="story-block">
-      <h3>The ASEAN Advantage</h3>
-      <p>Malaysia's geographic position at the heart of Southeast Asia is its greatest tourism asset. ASEAN neighbours account for the majority of arrivals, with Singapore alone contributing a quarter of all visitors in peak years. The close proximity, shared cultural familiarity, and well-connected transport links make Malaysia a natural short-break destination for millions in the region.</p>
+      <h3>Geography is a gift — but also a crutch</h3>
+      <p>Let's be honest: a huge chunk of our tourism success is location. Singaporeans cross the border in numbers that dwarf every other market. The ASEAN short-break machine has run smoothly for years. But relying on proximity isn't a strategy — it's a comfort zone. When borders close, that comfort zone vanishes.</p>
     </div>
   </div>
 </div>
- 
+
 <hr class="divider">
- 
+
 <!-- SECTION 5: SCATTER + AREA -->
 <div class="section">
   <div class="container">
     <p class="section-label">Chapter 5</p>
-    <h2>Patterns & Insights</h2>
-    <p class="intro">A closer look at the relationship between spending levels and the diversity of source markets, alongside the long-run trajectory of Malaysia's tourism arrivals.</p>
- 
+    <h2>What the patterns whisper</h2>
+    <p class="intro">Two final charts that complicate the story. One asks whether our biggest markets are actually our best. The other shows the pandemic not as a dip, but as a cliff.</p>
+
     <div class="grid-2">
       <div class="chart-card">
-        <h3>Spend vs Rank: Do Bigger Markets Spend More?</h3>
-        <p class="chart-note">Scatter plot of 2017 per diem spend by country. Smaller markets (by rank) often spend more — quality vs quantity.</p>
+        <h3>Popularity vs. value (2017)</h3>
+        <p class="chart-note">Rank 1 = most common source country. Notice how the dots scatter — high rank doesn't guarantee high spend.</p>
         <div id="chart9"></div>
       </div>
       <div class="chart-card">
-        <h3>Arrivals Over Time: Area View</h3>
-        <p class="chart-note">Filled area chart showing the full trajectory of tourist arrivals, emphasising the scale of the pandemic collapse.</p>
+        <h3>The cliff we don't talk about</h3>
+        <p class="chart-note">The filled area shows 25 years of building, then one year of collapse. The drop isn't a correction — it's a reset.</p>
         <div id="chart10"></div>
       </div>
     </div>
   </div>
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
-  <p><strong style="color:white">Malaysia Tourism: The Journey of a Nation</strong></p>
+  <p><strong style="color:white">Malaysia Tourism: Who comes, who spends, and what we lost</strong></p>
   <p>Data Visualisation 2 · FIT2179 · Monash University Malaysia · 2026</p>
   <p>Author: tangQi-creator &nbsp;|&nbsp; Published: May 2026</p>
   <p style="margin-top:12px">
@@ -363,16 +362,16 @@
     <a href="https://data.worldbank.org/indicator/ST.INT.ARVL?locations=MY" target="_blank">World Bank — International Tourism, Number of Arrivals (Malaysia)</a><br>
     <a href="https://archive.data.gov.my/data/en_US/dataset/?tags=tourism+malaysia" target="_blank">Lembaga Penggalakkan Pelancongan Malaysia via data.gov.my</a> — Per Diem Expenditure, Occupation Group, Travelling Companion datasets
   </p>
-  <p style="margin-top:12px;font-size:0.75rem">AI tools (Claude) were used to assist with data processing and code generation. All data is real and sourced from official publications.</p>
+  <p style="margin-top:12px;font-size:0.75rem">AI tools (Claude) assisted with data processing and initial code scaffolding. All data is from official sources. Analysis and narrative are author's own.</p>
 </footer>
- 
+
 <script>
 // ── SHARED CONFIG ──
 const GOLD = '#C9A84C';
 const RED  = '#C0392B';
 const DEEP = '#1A1A2E';
 const BLUE = '#2980B9';
- 
+
 // ── DATA ──
 const arrivals = [
   {year:1996,arrivals:7469000},{year:1997,arrivals:7138000},{year:1998,arrivals:6211000},
@@ -385,7 +384,7 @@ const arrivals = [
   {year:2017,arrivals:26757000},{year:2018,arrivals:25948000},{year:2019,arrivals:25832000},
   {year:2020,arrivals:26101000},{year:2021,arrivals:4333000}
 ];
- 
+
 const perdiem = [
   {year:2015,country:"SINGAPORE",spend:691.64},{year:2015,country:"THAILAND",spend:312.73},
   {year:2015,country:"INDONESIA",spend:427.77},{year:2015,country:"BRUNEI",spend:934.70},
@@ -418,7 +417,7 @@ const perdiem = [
   {year:2017,country:"NETHERLANDS",spend:381.21},{year:2017,country:"FRANCE",spend:442.89},
   {year:2017,country:"GERMANY",spend:537.69},{year:2017,country:"RUSSIA",spend:645.13}
 ];
- 
+
 const occupation2016 = [
   {occupation:"Professional/Technical",pct:25.58},
   {occupation:"Management/Admin",pct:23.53},
@@ -433,7 +432,7 @@ const occupation2016 = [
   {occupation:"Unemployed",pct:1.23},
   {occupation:"Others",pct:1.66}
 ];
- 
+
 const companion2016 = [
   {companion:"With Spouse",pct:31.86},
   {companion:"With Family",pct:26.32},
@@ -445,7 +444,7 @@ const companion2016 = [
   {companion:"Student Group",pct:0.58},
   {companion:"Others",pct:1.14}
 ];
- 
+
 const occupCompare = [
   {occupation:"Professional/Technical",year:"2016",pct:25.58},
   {occupation:"Management/Admin",year:"2016",pct:23.53},
@@ -460,7 +459,7 @@ const occupCompare = [
   {occupation:"Student",year:"2017",pct:6.18},
   {occupation:"Government",year:"2017",pct:6.56}
 ];
- 
+
 // Source countries with lat/lon for map
 const sourceCountries = [
   {country:"Singapore",lat:1.35,lon:103.82,spend:575.77},
@@ -484,12 +483,12 @@ const sourceCountries = [
   {country:"Germany",lat:51.17,lon:10.45,spend:537.69},
   {country:"Russia",lat:61.52,lon:105.32,spend:645.13}
 ];
- 
+
 const scatter2017 = perdiem.filter(d=>d.year===2017).map((d,i)=>({...d, rank:i+1}));
- 
+
 const topSix = ["BRUNEI","SAUDI ARABIA","AUSTRALIA","RUSSIA","CHINA","UNITED KINGDOM"];
 const lineData = perdiem.filter(d=>topSix.includes(d.country));
- 
+
 // ── CHART 1: Line chart arrivals ──
 vegaEmbed('#chart1', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
@@ -503,7 +502,7 @@ vegaEmbed('#chart1', {
   },
   config:{background:'white',view:{stroke:null}}
 },{actions:false});
- 
+
 // ── CHART 2: Bar chart avg spend by country (2017) ──
 const avg2017 = perdiem.filter(d=>d.year===2017).sort((a,b)=>b.spend-a.spend);
 vegaEmbed('#chart2', {
@@ -519,7 +518,7 @@ vegaEmbed('#chart2', {
   },
   config:{background:'white',view:{stroke:null}}
 },{actions:false});
- 
+
 // ── CHART 3: Multi-line top 6 ──
 vegaEmbed('#chart3', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
@@ -534,7 +533,7 @@ vegaEmbed('#chart3', {
   },
   config:{background:'white',view:{stroke:null}}
 },{actions:false});
- 
+
 // ── CHART 4: Heatmap ──
 vegaEmbed('#chart4', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
@@ -549,7 +548,7 @@ vegaEmbed('#chart4', {
   },
   config:{background:'white',view:{stroke:null}}
 },{actions:false});
- 
+
 // ── CHART 5: Occupation bar ──
 vegaEmbed('#chart5', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
@@ -564,7 +563,7 @@ vegaEmbed('#chart5', {
   },
   config:{background:'white',view:{stroke:null}}
 },{actions:false});
- 
+
 // ── CHART 6: Companion arc/pie ──
 vegaEmbed('#chart6', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
@@ -578,78 +577,8 @@ vegaEmbed('#chart6', {
   },
   config:{background:'white',view:{stroke:null}}
 },{actions:false});
- 
+
 // ── CHART 7: Grouped bar occupation compare ──
 vegaEmbed('#chart7', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  data:{values:occupCompare},
-  width:600, height:260,
-  mark:'bar',
-  encoding:{
-    x:{field:'occupation',type:'nominal',axis:{title:null,labelAngle:-25}},
-    y:{field:'pct',type:'quantitative',axis:{title:'%'}},
-    color:{field:'year',type:'nominal',scale:{range:[GOLD, DEEP]},legend:{title:'Year'}},
-    xOffset:{field:'year',type:'nominal'},
-    tooltip:[{field:'occupation'},{field:'year'},{field:'pct',title:'%',format:'.1f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-},{actions:false});
- 
-// ── CHART 8: World map ──
-vegaEmbed('#chart8', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:600, height:380,
-  layer:[
-    {
-      data:{url:'https://raw.githubusercontent.com/vega/vega/master/packages/vega-loader/test/data/world-110m.json',
-            format:{type:'topojson',feature:'countries'}},
-      mark:{type:'geoshape',fill:'#e8e0d0',stroke:'white',strokeWidth:0.5}
-    },
-    {
-      data:{values:sourceCountries},
-      mark:{type:'circle',opacity:0.8},
-      encoding:{
-        longitude:{field:'lon',type:'quantitative'},
-        latitude:{field:'lat',type:'quantitative'},
-        size:{field:'spend',type:'quantitative',scale:{range:[80,1200]},legend:{title:'RM/day'}},
-        color:{field:'spend',type:'quantitative',scale:{scheme:'orangered'},legend:null},
-        tooltip:[{field:'country'},{field:'spend',title:'RM/day',format:'.0f'}]
-      }
-    }
-  ],
-  projection:{type:'naturalEarth1'},
-  config:{background:'white',view:{stroke:null}}
-},{actions:false});
- 
-// ── CHART 9: Scatter spend vs rank ──
-vegaEmbed('#chart9', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  data:{values:scatter2017},
-  width:600, height:280,
-  mark:{type:'point',filled:true,size:100,opacity:0.8},
-  encoding:{
-    x:{field:'rank',type:'quantitative',axis:{title:'Market Rank (1 = most common)'}},
-    y:{field:'spend',type:'quantitative',axis:{title:'Avg Daily Spend (RM)'},scale:{zero:false}},
-    color:{field:'spend',type:'quantitative',scale:{scheme:'orangered'},legend:null},
-    tooltip:[{field:'country'},{field:'rank'},{field:'spend',title:'RM/day',format:'.0f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-},{actions:false});
- 
-// ── CHART 10: Area chart arrivals ──
-vegaEmbed('#chart10', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  data:{values:arrivals},
-  width:600, height:280,
-  mark:{type:'area',color:GOLD,opacity:0.7,line:{color:GOLD,strokeWidth:2}},
-  encoding:{
-    x:{field:'year',type:'ordinal',axis:{labelAngle:-45,title:'Year'}},
-    y:{field:'arrivals',type:'quantitative',axis:{title:'Arrivals',format:',.0f'}},
-    tooltip:[{field:'year',type:'ordinal'},{field:'arrivals',type:'quantitative',format:',.0f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-},{actions:false});
-</script>
-</body>
-</html>
- 
+  data:{
