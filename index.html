@@ -109,6 +109,7 @@
     border-radius: 2px;
     padding: 20px 24px;
     margin-bottom: 20px;
+    overflow: visible;
   }
   .chart-card h3 {
     font-family: Georgia, 'Times New Roman', serif;
@@ -123,7 +124,8 @@
     line-height: 1.5;
   }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+  .grid-2 .chart-card { height: 100%; }
   @media (max-width: 780px) {
     .grid-2 { grid-template-columns: 1fr; }
   }
@@ -188,6 +190,7 @@
   }
   footer a { color: var(--accent); text-decoration: none; }
   .vega-embed { width: 100% !important; }
+  .vega-embed canvas, .vega-embed svg { max-width: 100% !important; }
 </style>
 </head>
 <body>
@@ -480,7 +483,7 @@ vegaEmbed('#chart1', {
 // Chart 2
 vegaEmbed('#chart2', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:620, height:340,
+  width:750, height:400,
   data:{values:perdiem.filter(d=>d.year===2017)},
   mark:{type:'bar'},
   encoding:{
@@ -542,7 +545,7 @@ vegaEmbed('#chart5', {
 // Chart 6
 vegaEmbed('#chart6', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:300, height:300,
+  width:380, height:380,
   data:{values:companion.filter(d=>d.year===2016)},
   mark:{type:'arc',innerRadius:65},
   encoding:{
@@ -556,7 +559,7 @@ vegaEmbed('#chart6', {
 // Chart 7
 vegaEmbed('#chart7', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:580, height:260,
+  width:700, height:300,
   data:{values:occupation.filter(d=>['Professional/Technical','Management/Admin','Businessman','Housewife','Student','Government'].includes(d.occupation))},
   mark:'bar',
   params:[{name:'yr',select:{type:'point',fields:['year']},bind:'legend'}],
@@ -599,7 +602,7 @@ vegaEmbed('#chart8', {
 // Chart 9
 vegaEmbed('#chart9', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:580, height:340,
+  width:700, height:420,
   data:{values:scatterData},
   layer:[
     {
@@ -607,7 +610,7 @@ vegaEmbed('#chart9', {
       encoding:{
         x:{field:'arrivals',type:'quantitative',axis:{title:'Tourist Arrivals (2017)',format:',.0f'},scale:{type:'log'}},
         y:{field:'spend',type:'quantitative',axis:{title:'Avg Daily Spend, RM (2017)'},scale:{zero:false}},
-        size:{field:'total',type:'quantitative',scale:{range:[60,1400]},legend:{title:'Est. total spend (RM M)'}},
+        size:{field:'total',type:'quantitative',scale:{range:[60,1400]},legend:{title:'Est. total spend (RM M)',orient:'bottom'}},
         color:{field:'spend',type:'quantitative',scale:{scheme:'orangered'},legend:null},
         tooltip:[
           {field:'country',title:'Country'},
@@ -633,7 +636,7 @@ vegaEmbed('#chart9', {
 // Chart 10
 vegaEmbed('#chart10', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:580, height:260,
+  width:700, height:300,
   data:{values:companion.filter(d=>d.companion!=='Others'&&d.companion!=='With Incentive Group'&&d.companion!=='Student Group')},
   mark:'bar',
   encoding:{
