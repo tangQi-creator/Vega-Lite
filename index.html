@@ -7,180 +7,164 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- 
+  Fonts: 
+  - Georgia (system serif) for headings, per assignment requirement
+  - System sans-serif stack for body, per assignment requirement
+  Both ship with the OS, no Google Fonts dependency.
+-->
 <style>
+  /* ── NEW SKELETON: Clean, neutral, no editorial styling ── */
   :root {
-    --primary: #2C3E50;     /* deep slate */
-    --accent: #C9A84C;       /* gold, sparingly used */
-    --red: #C0392B;
-    --bg: #F8F6F2;           /* warm off-white */
-    --text: #2D2D2D;
-    --muted: #666;
-    --card: #FFFFFF;
-    --border-light: #E0DCD3;
+    --text: #222;
+    --muted: #555;
+    --bg: #FAFAFA;
+    --card-bg: #FFFFFF;
+    --border: #DDD;
+    --accent: #3A6B8C;      /* muted slate blue, not gold */
+    --red: #B84C3B;
+    --light-accent: #E8EFF4;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Source Sans 3', sans-serif;
-    font-weight: 300;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
     line-height: 1.6;
   }
 
-  /* ── Hero (much cleaner) ── */
+  /* ── Hero: light background, left-aligned, no stats ── */
   .hero {
-    background: #2B2B2B;
-    color: white;
-    padding: 60px 40px 50px;
-    text-align: center;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 32px 40px;
+    text-align: left;
+    max-width: 1100px;
+    margin: 0 auto;
   }
   .hero-tag {
     font-size: 10px;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+    font-weight: 600;
   }
   .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    line-height: 1.2;
-    margin-bottom: 16px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: #1A1A1A;
   }
   .hero h1 span { color: var(--accent); }
   .hero p {
-    max-width: 680px;
-    margin: 0 auto;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.7;
-    color: rgba(255,255,255,0.7);
-    font-weight: 300;
-  }
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-  }
-  .hero-stat .num {
-    font-family: 'Source Sans 3', sans-serif;
-    font-weight: 700;
-    font-size: 2.2rem;
-    color: var(--accent);
-    display: block;
-    line-height: 1.1;
-  }
-  .hero-stat .lbl {
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-    font-weight: 400;
+    color: var(--muted);
+    max-width: 680px;
   }
 
   /* ── Layout ── */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .section { padding: 56px 0; }
+  .section { padding: 48px 0; }
 
   .section-label {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-weight: 600;
   }
   .section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
     font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--primary);
+    margin-bottom: 10px;
+    color: #1A1A1A;
   }
   .section .intro {
     font-size: 0.95rem;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--muted);
     max-width: 700px;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
 
   .divider {
     border: none;
     height: 1px;
-    background: var(--border-light);
+    background: var(--border);
     margin: 0;
   }
 
-  /* ── Chart card ── */
+  /* ── Chart card: simple border, no shadow, no gold top ── */
   .chart-card {
-    background: var(--card);
-    border-radius: 4px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-    border-top: 1px solid var(--border-light);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
   }
   .chart-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
     margin-bottom: 4px;
-    color: var(--primary);
+    color: #1A1A1A;
   }
   .chart-card .chart-note {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--muted);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     line-height: 1.5;
   }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 780px) {
     .grid-2 { grid-template-columns: 1fr; }
-    .hero-stats { gap: 28px; }
   }
 
-  /* ── Story block (less dramatic) ── */
+  /* ── Story block: light background, neutral left border ── */
   .story-block {
-    background: #F0EDE6;
-    border-left: 4px solid var(--accent);
-    padding: 32px 36px;
-    margin: 32px 0;
-    border-radius: 0 4px 4px 0;
-    color: var(--text);
+    background: #F4F4F4;
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 0 2px 2px 0;
   }
   .story-block h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--primary);
-    margin-bottom: 12px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    color: #1A1A1A;
+    margin-bottom: 8px;
   }
   .story-block p {
-    font-size: 0.92rem;
-    line-height: 1.8;
-    color: #3A3A3A;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #333;
   }
 
-  /* ── Insight box ── */
+  /* ── Insight box: light blue-grey, no gold, no emoji ── */
   .insight {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    background: #F4F1EB;
-    border-left: 3px solid var(--red);
-    padding: 16px 20px;
-    margin-bottom: 24px;
+    gap: 12px;
+    background: var(--light-accent);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin-bottom: 20px;
     border-radius: 2px;
   }
   .insight-icon {
     font-size: 0.7rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--red);
-    font-weight: 600;
+    color: var(--accent);
+    font-weight: 700;
     flex-shrink: 0;
     margin-top: 2px;
   }
@@ -194,9 +178,10 @@
 
   /* ── Footer ── */
   footer {
-    background: #2B2B2B;
-    color: rgba(255,255,255,0.45);
-    padding: 36px;
+    background: #F4F4F4;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    padding: 32px;
     text-align: center;
     font-size: 0.78rem;
     line-height: 1.9;
@@ -210,14 +195,8 @@
 <!-- HERO -->
 <div class="hero">
   <p class="hero-tag">FIT2179 · Data Visualisation 2 · 2026</p>
-  <h1>Malaysia Tourism:<br><span>Arrivals, Spending, and Demographics</span></h1>
+  <h1>Malaysia Tourism: <span>Arrivals, Spending, and Demographics</span></h1>
   <p>This visualisation examines tourism trends in Malaysia from 1995 to 2022, focusing on tourist arrivals, spending patterns by country of origin, and visitor demographic profiles before and after the COVID-19 disruption.</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><span class="num">27.4M</span><span class="lbl">Peak Arrivals (2014)</span></div>
-    <div class="hero-stat"><span class="num">RM1,070</span><span class="lbl">Highest Avg Daily Spend</span></div>
-    <div class="hero-stat"><span class="num">20</span><span class="lbl">Key Source Markets</span></div>
-    <div class="hero-stat"><span class="num">−99%</span><span class="lbl">Arrivals Drop (2019→2021)</span></div>
-  </div>
 </div>
 
 <!-- SECTION 1 -->
@@ -342,6 +321,9 @@
   <p style="margin-top:8px">AI-assisted tools were used for code debugging and language refinement. All analysis, data selection, and visualisation decisions were completed by the author.</p>
 </footer>
 
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CHARTS SCRIPT: All 10 Vega-Lite visualisations -->
+<!-- ═══════════════════════════════════════════════ -->
 <script>
 const opt = {actions:false};
 
