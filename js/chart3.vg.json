@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 460,
+  "height": 280,
+  "data": {
+    "values": [
+      {"year":2015,"country":"Brunei","spend":934.70},{"year":2015,"country":"Saudi Arabia","spend":912.67},
+      {"year":2015,"country":"Australia","spend":773.03},{"year":2015,"country":"Russia","spend":696.99},
+      {"year":2015,"country":"China","spend":589.53},{"year":2015,"country":"United Kingdom","spend":601.64},
+      {"year":2016,"country":"Brunei","spend":720.25},{"year":2016,"country":"Saudi Arabia","spend":943.12},
+      {"year":2016,"country":"Australia","spend":591.89},{"year":2016,"country":"Russia","spend":658.02},
+      {"year":2016,"country":"China","spend":746.18},{"year":2016,"country":"United Kingdom","spend":691.96},
+      {"year":2017,"country":"Brunei","spend":484.02},{"year":2017,"country":"Saudi Arabia","spend":1069.95},
+      {"year":2017,"country":"Australia","spend":778.12},{"year":2017,"country":"Russia","spend":645.13},
+      {"year":2017,"country":"China","spend":661.35},{"year":2017,"country":"United Kingdom","spend":504.87},
+      {"year":2018,"country":"Brunei","spend":889.12},{"year":2018,"country":"Saudi Arabia","spend":1066.79},
+      {"year":2018,"country":"Australia","spend":723.92},{"year":2018,"country":"Russia","spend":565.94},
+      {"year":2018,"country":"China","spend":685.14},{"year":2018,"country":"United Kingdom","spend":613.80}
+    ]
+  },
+  "mark": {"type": "line", "point": true, "strokeWidth": 2},
+  "params": [{"name": "hl", "select": {"type": "point", "fields": ["country"]}, "bind": "legend"}],
+  "encoding": {
+    "x": {
+      "field": "year", "type": "quantitative",
+      "axis": {"format": "d", "title": "Year"},
+      "scale": {"domain": [2015,2018]}
+    },
+    "y": {
+      "field": "spend", "type": "quantitative",
+      "axis": {"title": "RM per day"},
+      "scale": {"zero": false}
+    },
+    "color": {"field": "country", "type": "nominal", "legend": {"title": "Country"}},
+    "opacity": {"condition": {"param": "hl", "value": 1}, "value": 0.15},
+    "tooltip": [
+      {"field": "country"},
+      {"field": "year", "type": "quantitative", "format": "d"},
+      {"field": "spend", "title": "RM/day", "format": ".0f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

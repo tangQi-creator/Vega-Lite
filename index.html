@@ -7,48 +7,102 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<!-- 
-  Fonts: 
-  - Georgia (system serif) for headings, per assignment requirement
-  - System sans-serif stack for body, per assignment requirement
-  Both ship with the OS, no Google Fonts dependency.
--->
 <style>
-  /* ── NEW SKELETON: Clean, neutral, no editorial styling ── */
   :root {
     --text: #222;
     --muted: #555;
     --bg: #FAFAFA;
     --card-bg: #FFFFFF;
     --border: #DDD;
-    --accent: #3A6B8C;      /* muted slate blue, not gold */
+    --accent: #3A6B8C;
     --red: #B84C3B;
     --light-accent: #E8EFF4;
+    --deep-blue: #1A3A4A;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.6;
+    margin-left: 6%;
   }
 
-  /* ── Hero: light background, left-aligned, no stats ── */
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    background: var(--deep-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .nav-bar a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 0 12px;
+    transition: opacity 0.2s;
+  }
+  .nav-bar a:hover { opacity: 0.8; }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 44px;
+    width: 6%;
+    height: calc(100vh - 44px);
+    background: var(--deep-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    z-index: 999;
+  }
+  .sidebar a {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .sidebar a:hover { color: white; }
+
+  .content-wrapper {
+    margin-left: 0;
+    padding-top: 44px;
+  }
+
   .hero {
-    background: var(--card-bg);
+    background-image: url('https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1400&q=80');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0,0,0,0.55);
+    background-blend-mode: multiply;
     border-bottom: 1px solid var(--border);
     padding: 48px 32px 40px;
     text-align: left;
     max-width: 1100px;
     margin: 0 auto;
+    color: white;
   }
   .hero-tag {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 12px;
     font-weight: 600;
   }
@@ -58,18 +112,17 @@
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     line-height: 1.25;
     margin-bottom: 12px;
-    color: #1A1A1A;
+    color: white;
   }
-  .hero h1 span { color: var(--accent); }
+  .hero h1 span { color: #B8D4E3; }
   .hero p {
     font-size: 0.95rem;
     line-height: 1.7;
-    color: var(--muted);
+    color: rgba(255,255,255,0.85);
     max-width: 680px;
   }
 
-  /* ── Layout ── */
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
   .section { padding: 48px 0; }
 
   .section-label {
@@ -102,7 +155,6 @@
     margin: 0;
   }
 
-  /* ── Chart card: simple border, no shadow, no gold top ── */
   .chart-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -130,7 +182,6 @@
     .grid-2 { grid-template-columns: 1fr; }
   }
 
-  /* ── Story block: light background, neutral left border ── */
   .story-block {
     background: #F4F4F4;
     border-left: 3px solid var(--accent);
@@ -150,7 +201,6 @@
     color: #333;
   }
 
-  /* ── Insight box: light blue-grey, no gold, no emoji ── */
   .insight {
     display: flex;
     align-items: flex-start;
@@ -178,7 +228,161 @@
   }
   .insight strong { color: var(--red); }
 
-  /* ── Footer ── */
+  /* 全宽大图区块 */
+  .full-width-chart {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    margin-bottom: 3rem;
+  }
+  .full-width-chart .chart-caption {
+    font-family: Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 6px;
+  }
+  .full-width-chart .chart-sub {
+    font-size: 0.82rem;
+    color: #999;
+    margin-bottom: 1.2rem;
+  }
+  .full-width-chart .chart-annotation {
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    background: #f8f9fa;
+    border-left: 3px solid #1A3A4A;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  /* 两栏图文区块 */
+  .two-col-block {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .two-col-block.reverse {
+    flex-direction: row-reverse;
+  }
+  .two-col-text {
+    flex: 0 0 35%;
+    position: sticky;
+    top: 5rem;
+  }
+  .two-col-text .col-badge {
+    font-family: monospace;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8b7355;
+    margin-bottom: 0.6rem;
+  }
+  .two-col-text .col-title {
+    font-family: Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .two-col-text .col-body {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 0.8rem;
+  }
+  .two-col-chart {
+    flex: 0 0 60%;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .two-col-chart .chart-caption {
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+  }
+  .two-col-chart .chart-sub {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 1rem;
+  }
+
+  /* Section 2 棋盘交错网格 */
+  .unified-spending-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    grid-template-rows: auto auto;
+    gap: 3rem 3.5rem;
+    margin-bottom: 4rem;
+  }
+  .cell-heatmap {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .cell-text-top {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+  .cell-text-bottom {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 2px solid #eee;
+    padding-right: 2rem;
+    padding-top: 1rem;
+  }
+  .cell-facets {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .chart-header-inline {
+    font-family: Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  @media (max-width: 900px) {
+    .unified-spending-grid { grid-template-columns: 1fr; }
+    .cell-heatmap, .cell-text-top,
+    .cell-text-bottom, .cell-facets {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .cell-text-bottom {
+      border-right: none;
+      padding-right: 0;
+    }
+    .two-col-block, .two-col-block.reverse {
+      flex-direction: column;
+    }
+    .two-col-text { position: static; flex: none; width: 100%; }
+    .two-col-chart { flex: none; width: 100%; }
+  }
+
   footer {
     background: #F4F4F4;
     border-top: 1px solid var(--border);
@@ -195,138 +399,277 @@
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <p class="hero-tag">FIT2179 · Data Visualisation 2 · 2026</p>
-  <h1>Malaysia Tourism: <span>Arrivals, Spending, and Demographics</span></h1>
-  <p>This visualisation examines tourism trends in Malaysia from 1995 to 2022, focusing on tourist arrivals, spending patterns by country of origin, and visitor demographic profiles before and after the COVID-19 disruption.</p>
+<nav class="nav-bar">
+  <a href="#sec1">Arrivals</a>
+  <a href="#sec2">Spending</a>
+  <a href="#sec3">Demographics</a>
+</nav>
+
+<div class="sidebar">
+  <a href="#sec1">01</a>
+  <a href="#sec2">02</a>
+  <a href="#sec3">03</a>
 </div>
 
-<!-- SECTION 1 -->
-<div class="section">
-  <div class="container">
-    <p class="section-label">Section 1</p>
-    <h2>Tourist arrivals in Malaysia, 1995–2022</h2>
-    <p class="intro">International tourist arrivals to Malaysia grew steadily from 7.5 million in 1995 to a peak of 27.4 million in 2014. Growth was interrupted twice — by the SARS outbreak in 2003 and the Global Financial Crisis in 2008 — before recovering both times. The COVID-19 pandemic in 2020–2021 caused a far more severe and prolonged disruption.</p>
+<div class="content-wrapper">
 
-    <div class="insight">
-      <span class="insight-icon">Observation</span>
-      <p>Arrivals in 2021 fell to <strong>134,816</strong> — the lowest recorded figure since modern tourism statistics began. This represents a decline of over 99% from the 2019 level of 26.1 million.</p>
-    </div>
+  <div class="hero">
+    <p class="hero-tag">FIT2179 · Data Visualisation 2 · 2026</p>
+    <h1>Malaysia Tourism: <span>Arrivals, Spending, and Demographics</span></h1>
+    <p>This visualisation examines tourism trends in Malaysia from 1995 to 2022, focusing on tourist arrivals, spending patterns by country of origin, and visitor demographic profiles before and after the COVID-19 disruption.</p>
+  </div>
 
-    <div class="chart-card">
-      <h3>International Tourist Arrivals to Malaysia, 1995–2022</h3>
-      <p class="chart-note">Source: World Bank (ST.INT.ARVL); 2021–2022 from Tourism Malaysia official reports. Key events are annotated.</p>
-      <div id="chart1"></div>
-    </div>
+  <!-- SECTION 1 -->
+  <div class="section" id="sec1">
+    <div class="container">
 
-    <div class="story-block">
-      <h3>Impact of COVID-19 on Malaysian Tourism</h3>
-      <p>The sharp decline in 2021 interrupted a tourism growth trend that had continued for almost two decades. Prior disruptions — SARS in 2003 and the Global Financial Crisis in 2008 — caused temporary dips but were followed by strong recoveries. The COVID-19 border closures produced a qualitatively different outcome, with arrivals dropping to near zero for an extended period. The post-pandemic recovery may also shift attention from tourist volume toward tourism value and visitor spending patterns.</p>
+      <!-- 全宽折线图 -->
+      <div class="full-width-chart">
+        <div class="chart-caption">International Tourist Arrivals to Malaysia, 1995–2022</div>
+        <div class="chart-sub">Source: World Bank (ST.INT.ARVL); 2021–2022 from Tourism Malaysia.</div>
+        <div id="chart1"></div>
+        <div class="chart-annotation">
+          <strong>Reading the chart:</strong> Three events left visible marks on Malaysia's tourism trajectory. The <strong>2003 SARS outbreak</strong> caused a sharp single-year drop, but arrivals rebounded to record highs within two years. The <strong>2008 Global Financial Crisis</strong> barely registered — a testament to how deeply embedded Malaysia had become in regional travel circuits. Then came <strong>COVID-19</strong>. Unlike previous shocks, the 2020–2021 collapse was not a dip but a near-total shutdown. Arrivals in 2021 stood at just 134,816 — a figure that would have seemed impossible just two years earlier. Recovery began in 2022, but the road back to 27 million remains long.
+        </div>
+      </div>
+
+      <!-- 两栏：Chart 3 -->
+      <div class="two-col-block">
+        <div class="two-col-text">
+          <div class="col-badge">01.2 // TOP MARKETS</div>
+          <h3 class="col-title">Saudi Arabia Leads on Value — Every Single Year</h3>
+          <p class="col-body">
+            Between 2015 and 2018, Saudi Arabia's tourists consistently outspent every other source market by a wide margin. This wasn't a one-off — it held true across all four years tracked in the survey.
+          </p>
+          <p class="col-body">
+            Brunei comes in second, partly explained by its geographic proximity and the high purchasing power of its population. Australia rounds out the top tier, reflecting the typical spending patterns of long-haul Western travellers.
+          </p>
+          <p class="col-body">
+            The grey lines in the chart represent China, Russia, and the United Kingdom — markets that generate significant volume, but whose daily spend sits closer to the regional average. They matter for headcount; Saudi Arabia matters for revenue.
+          </p>
+        </div>
+        <div class="two-col-chart">
+          <div class="chart-caption">Daily Spend Trends: Top 6 Markets, 2015–2018</div>
+          <div class="chart-sub">Saudi Arabia highlighted. Others shown in grey for context.</div>
+          <div id="chart3"></div>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
 
-<hr class="divider">
+  <hr class="divider">
 
-<!-- SECTION 2 -->
-<div class="section">
-  <div class="container">
-    <p class="section-label">Section 2</p>
-    <h2>Tourist spending patterns by country of origin</h2>
-    <p class="intro">Average daily expenditure varies considerably across Malaysia's 20 main source markets. Middle Eastern and Western markets tend to spend more per day, while neighbouring ASEAN countries contribute higher visitor volumes but lower per-day spend.</p>
+  <!-- SECTION 2 -->
+  <div class="section" id="sec2">
+    <div class="container">
 
-    <div class="insight">
-      <span class="insight-icon">Observation</span>
-      <p>Saudi Arabia tourists spent an average of <strong>RM1,070 per day</strong> in 2017 — more than three times the daily spend of Thailand visitors (RM348). This gap highlights the difference between high-volume and high-value tourism markets.</p>
-    </div>
+      <p class="section-label">Section 2</p>
+      <h2>Tourist Spending Patterns by Country of Origin</h2>
+      <p class="intro">Average daily expenditure varies considerably across Malaysia's 20 main source markets. Middle Eastern and Western markets tend to spend more per day, while neighbouring ASEAN countries contribute higher visitor volumes but lower per-day spend.</p>
 
-    <div class="chart-card">
-      <h3>Average Daily Spend by Country of Origin (2017)</h3>
-      <p class="chart-note">Source: Departing Visitor Survey, Tourism Malaysia. Figures represent average per diem expenditure in Ringgit Malaysia (RM).</p>
-      <div id="chart2"></div>
-    </div>
+      <!-- 棋盘交错：热力图 + 小多图 -->
+      <div class="unified-spending-grid">
 
-    <div class="grid-2">
-      <div class="chart-card">
-        <h3>Daily Spend Trends: Top 6 Markets, 2015–2018</h3>
-        <p class="chart-note">Click a country in the legend to highlight its trend. Saudi Arabia consistently leads but shows year-to-year variation.</p>
-        <div id="chart3"></div>
+        <div class="cell-heatmap">
+          <div class="chart-header-inline">Spending Heatmap: Top 12 Markets, 2015–2018</div>
+          <p style="font-size:0.82rem;color:#999;margin:4px 0 12px 0;">Darker blue = higher average daily spend. Hover for exact figures.</p>
+          <div id="chart4"></div>
+        </div>
+
+        <div class="cell-text-top">
+          <div class="section-badge">02.1 // THE OVERVIEW</div>
+          <h3 class="editorial-title" style="font-size:1.5rem;">The Anatomy of<br>Tourist Value</h3>
+          <p class="editorial-text">
+            The heatmap tells a clear story at a glance. The top rows — Saudi Arabia, Brunei, Australia — stay consistently dark across all four years, signalling stable, high-value spending patterns that don't fluctuate much with time.
+          </p>
+          <p class="editorial-text">
+            The bottom rows are a different picture. Indonesia, South Korea, and Japan sit in the lighter end of the spectrum — not because their tourists are less affluent, but because Malaysia tends to attract shorter stays and transit visitors from these markets, which pulls down the daily average.
+          </p>
+          <p class="editorial-text">
+            One outlier worth noting: <strong>Singapore's 2018 figure jumps sharply</strong> compared to prior years. This may reflect a change in survey methodology or a genuine shift in Singaporean travel behaviour — either way, it stands out.
+          </p>
+        </div>
+
+        <div class="cell-text-bottom">
+          <div class="section-badge">02.2 // TOP 5 MARKETS</div>
+          <h3 class="editorial-title" style="font-size:1.5rem;">A Closer Look at<br>Five Key Markets</h3>
+          <p class="editorial-text">
+            The faceted charts highlight the daily spend trajectories of five source markets that together shape the upper end of Malaysia's tourism revenue. <strong>Saudi Arabia</strong> consistently tops the range, with daily spend above RM 1,000, far outpacing even other high-spending nations.
+          </p>
+          <p class="editorial-text">
+            <strong>Australia</strong> and <strong>Brunei</strong> jostle for second place, though Australia shows more volatility across the four years. <strong>China</strong> trends steadily upward, reflecting its growing outbound travel power, while <strong>Singapore</strong> — typically a moderate spender — spikes dramatically in 2018, a data point that warrants further investigation.
+          </p>
+          <p class="editorial-text">
+            These five markets illustrate that high value does not always mean high volume. Saudi Arabia and Australia deliver outstanding per-day spend despite relatively modest arrival numbers, underscoring the strategic importance of nurturing long-haul, high-yield segments alongside regional mass tourism.
+          </p>
+        </div>
+
+        <div class="cell-facets">
+          <div class="chart-header-inline">Daily Spend Trends: Top 5 Markets, 2015–2018</div>
+          <p style="font-size:0.82rem;color:#999;margin:4px 0 12px 0;">Each panel shows one country's daily spend trend. Saudi Arabia highlighted in blue.</p>
+          <div id="chart_facet"></div>
+        </div>
+
       </div>
-      <div class="chart-card">
-        <h3>Spending Heatmap: All 20 Markets, 2015–2018</h3>
-        <p class="chart-note">Darker blue indicates higher average daily spend. Hover over a cell for exact figures.</p>
-        <div id="chart4"></div>
+
+      <!-- 两栏：Chart 9 散点图 -->
+      <div class="two-col-block">
+        <div class="two-col-text">
+          <div class="col-badge">02.3 // VOLUME VS VALUE</div>
+          <h3 class="col-title">Volume and Value Rarely Come Together</h3>
+          <p class="col-body">
+            This chart plots two things at once: how many tourists came from each country (x-axis) and how much each tourist spent per day (y-axis). The bubble size adds a third dimension — the estimated total economic contribution of that market.
+          </p>
+          <p class="col-body">
+            <strong>Singapore</strong> sits far to the right — over 10 million arrivals in 2017 alone, making it Malaysia's single largest source market by a massive margin. But its daily spend is modest, sitting below RM600.
+          </p>
+          <p class="col-body">
+            <strong>Saudi Arabia</strong> sits near the top of the y-axis with over RM1,000 per day, but sends far fewer visitors. <strong>Australia</strong> occupies a similar position — high spend, moderate volume.
+          </p>
+          <p class="col-body">
+            The grey bubbles in the middle represent markets that are neither dominant in volume nor exceptional in value. They form the long tail of Malaysia's tourism economy — present, but not driving the story.
+          </p>
+        </div>
+        <div class="two-col-chart">
+          <div class="chart-caption">Tourist Arrivals vs. Average Daily Spend (2017)</div>
+          <div class="chart-sub">Highlighted: Singapore, Saudi Arabia, Australia, China. Others in grey.</div>
+          <div id="chart9"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="chart-card">
-      <h3>Tourist Arrivals vs. Average Daily Spend by Country (2017)</h3>
-      <p class="chart-note">Each bubble represents one source market. Bubble size indicates estimated total tourism contribution (arrivals × spend). Countries in the top-right generate both high volume and high spend.</p>
-      <div id="chart9"></div>
-    </div>
+      <!-- 全宽：地图 -->
+      <div class="full-width-chart">
+        <div class="chart-caption">Geographic Distribution of Source Markets (2017)</div>
+        <div class="chart-sub">Bubble size = average daily spend (RM). Colour = geographic region. Source: Departing Visitor Survey, Tourism Malaysia.</div>
+        <div id="chart8"></div>
+        <div class="chart-annotation">
+          <strong>What the map shows:</strong> Malaysia's tourism source markets span the globe, but the economic weight is unevenly distributed. The large bubble hovering over the Arabian Peninsula — <strong>Saudi Arabia</strong> — is a visual reminder that one market can punch well above its weight. Meanwhile, the cluster of smaller bubbles across Southeast Asia reflects the dominance of regional travel: high frequency, shorter distances, lower daily spend. Western European and North American markets are present but modest in both size and colour intensity, suggesting untapped long-haul potential. The colour coding by region helps distinguish patterns that raw numbers alone might obscure.
+        </div>
+      </div>
 
-    <div class="chart-card">
-      <h3>Geographic Distribution of Source Markets (2017)</h3>
-      <p class="chart-note">Bubble size and colour represent average daily spend in RM. Source: Departing Visitor Survey, Tourism Malaysia.</p>
-      <div id="chart8"></div>
     </div>
   </div>
-</div>
 
-<hr class="divider">
+  <hr class="divider">
 
-<!-- SECTION 3 -->
-<div class="section">
-  <div class="container">
-    <p class="section-label">Section 3</p>
-    <h2>Tourist demographic profiles</h2>
-    <p class="intro">Occupation and travel companion data from the Departing Visitor Survey provide a demographic profile of Malaysia's inbound tourists. The data covers 2016 and 2017, offering a view of visitor characteristics in the years immediately before the pandemic.</p>
+  <!-- SECTION 3 -->
+  <div class="section" id="sec3">
+    <div class="container">
 
-    <div class="grid-2">
-      <div class="chart-card">
-        <h3>Tourist Occupation Profile (2016)</h3>
-        <p class="chart-note">Source: Departing Visitor Survey, Tourism Malaysia. Professional and management categories account for nearly half of all visitors.</p>
-        <div id="chart5"></div>
+      <p class="section-label">Section 3</p>
+      <h2>Tourist Demographic Profiles</h2>
+      <p class="intro">Occupation and travel companion data from the Departing Visitor Survey provide a demographic profile of Malaysia's inbound tourists, covering 2016 and 2017.</p>
+
+      <!-- 两栏：Chart 5 职业 -->
+      <div class="two-col-block">
+        <div class="two-col-text">
+          <div class="col-badge">03.1 // WHO VISITS</div>
+          <h3 class="col-title">Most Visitors Come with a Paycheck</h3>
+          <p class="col-body">
+            Nearly half of all inbound tourists in 2016 identified as either <strong>Professional/Technical</strong> or <strong>Management/Administrative</strong> workers. This is significant — these are people with stable incomes, annual leave allowances, and the financial means to travel internationally.
+          </p>
+          <p class="col-body">
+            Businessmen make up another 13%, suggesting that a meaningful share of arrivals are tied to commercial activity rather than pure leisure. This has implications for what kinds of tourism infrastructure matter most — not just beaches and theme parks, but conference facilities, business hotels, and efficient transit connections.
+          </p>
+          <p class="col-body">
+            The "Others" category captures a long tail of smaller occupational groups — from students to retirees — each individually small but collectively worth tracking.
+          </p>
+        </div>
+        <div class="two-col-chart">
+          <div class="chart-caption">Tourist Occupation Profile (2016)</div>
+          <div class="chart-sub">Top 5 categories shown. Remaining grouped as Others.</div>
+          <div id="chart5"></div>
+        </div>
       </div>
-      <div class="chart-card">
-        <h3>Travel Companion Type (2016)</h3>
-        <p class="chart-note">The majority of tourists arrived with a spouse or family members. Solo travel accounted for approximately 16% of visitors.</p>
-        <div id="chart6"></div>
+
+      <!-- 两栏：Chart 6 同行类型 -->
+      <div class="two-col-block reverse">
+        <div class="two-col-text">
+          <div class="col-badge">03.2 // TRAVEL STYLE</div>
+          <h3 class="col-title">Malaysia is a Destination for Two</h3>
+          <p class="col-body">
+            In 2016, nearly a third of all inbound tourists travelled with their spouse, and another quarter came with family or relatives. Together, these two groups make up well over half of all arrivals — a strong signal that Malaysia is primarily perceived as a couples and family destination.
+          </p>
+          <p class="col-body">
+            Solo travel accounted for around 16% — not negligible, but clearly not the dominant mode. This matters for destination marketing: the experience of travelling as a couple or family is fundamentally different from solo travel, and Malaysia's tourism offer needs to speak to group dynamics, shared itineraries, and multigenerational appeal.
+          </p>
+        </div>
+        <div class="two-col-chart">
+          <div class="chart-caption">Travel Companion Type (2016)</div>
+          <div class="chart-sub">Source: Departing Visitor Survey, Tourism Malaysia.</div>
+          <div id="chart6"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="chart-card">
-      <h3>Occupation Profile: 2016 vs 2017</h3>
-      <p class="chart-note">Click a year in the legend to highlight it. The Management/Administration category declined from 23.5% in 2016 to 16.3% in 2017, while Housewife and Retired categories increased.</p>
-      <div id="chart7"></div>
-    </div>
+      <!-- 两栏：Chart 7 职业对比 -->
+      <div class="two-col-block">
+        <div class="two-col-text">
+          <div class="col-badge">03.3 // YEAR ON YEAR</div>
+          <h3 class="col-title">The Profile Shifted — Noticeably</h3>
+          <p class="col-body">
+            Between 2016 and 2017, the occupational breakdown of visitors changed more than you might expect in a single year. The <strong>Management/Administrative</strong> category dropped from 23.5% to 16.3% — a fall of more than seven percentage points in twelve months.
+          </p>
+          <p class="col-body">
+            At the same time, <strong>Housewife</strong> visitors increased from 7.1% to 11.1%, and <strong>Businessman</strong> visitors declined slightly. These aren't random statistical noise — they suggest a genuine shift in who was choosing Malaysia as a destination in 2017.
+          </p>
+          <p class="col-body">
+            Whether this reflects changes in source market demographics, the effects of specific marketing campaigns, or broader economic conditions in key origin countries is difficult to say from the data alone — but the shift is real and worth watching.
+          </p>
+        </div>
+        <div class="two-col-chart">
+          <div class="chart-caption">Occupation Profile: 2016 vs 2017</div>
+          <div class="chart-sub">Click a year in the legend to highlight. Top 4 categories shown.</div>
+          <div id="chart7"></div>
+        </div>
+      </div>
 
-    <div class="chart-card">
-      <h3>Travel Companion Type: 2016 vs 2017</h3>
-      <p class="chart-note">The proportion travelling with a spouse increased substantially in 2017, while the With Family/Relatives and With Friends categories declined. Source: Departing Visitor Survey, Tourism Malaysia.</p>
-      <div id="chart10"></div>
-    </div>
+      <!-- 两栏：Chart 10 同行类型对比 -->
+      <div class="two-col-block reverse">
+        <div class="two-col-text">
+          <div class="col-badge">03.4 // COMPANION SHIFT</div>
+          <h3 class="col-title">Something Changed in 2017</h3>
+          <p class="col-body">
+            The jump in spouse travel between 2016 and 2017 is striking. Going from 31.9% to 55.7% in a single year is not a gradual trend — it's a sharp structural shift that demands explanation.
+          </p>
+          <p class="col-body">
+            At the same time, <strong>With Family</strong> travel collapsed from 26.3% to just 8.7%, and <strong>With Friends</strong> dropped from 17.4% to 2.8%. The total share of visitors didn't change dramatically — but how they were travelling clearly did.
+          </p>
+          <p class="col-body">
+            One possibility is a change in the survey's sampling methodology between the two years. Another is a genuine demographic shift driven by changes in the source market mix. Either way, the contrast between the two years makes this one of the more intriguing data points in the entire dataset.
+          </p>
+        </div>
+        <div class="two-col-chart">
+          <div class="chart-caption">Travel Companion Type: 2016 vs 2017</div>
+          <div class="chart-sub">Top 4 categories shown. Source: Departing Visitor Survey, Tourism Malaysia.</div>
+          <div id="chart10"></div>
+        </div>
+      </div>
 
-    <div class="story-block">
-      <h3>Observations on Visitor Demographics</h3>
-      <p>The occupation data indicates that a large share of Malaysia's inbound tourists are from professional and managerial backgrounds — demographic groups that typically have higher disposable income. Travel companion patterns suggest that couple and family travel dominate, which has implications for the types of tourism products and experiences that are most relevant to Malaysia's target markets. Year-on-year shifts between 2016 and 2017 in both occupation and companion categories suggest that visitor profiles are not static and may respond to external factors such as exchange rates, marketing campaigns, or changes in source market demographics.</p>
+      <div class="story-block">
+        <h3>What the Demographics Tell Us</h3>
+        <p>
+          Taken together, the occupation and companion data paint a picture of Malaysia's typical inbound tourist: a working professional, travelling with a partner or family, from a middle-to-high income background. This is not a backpacker market — it's a market that responds to quality, convenience, and experiences worth sharing.
+        </p>
+        <p style="margin-top:0.8rem;">
+          The year-on-year shifts between 2016 and 2017 are a reminder that visitor profiles are not fixed. They respond to exchange rates, visa policies, airline routes, and marketing. Understanding who is coming — and how that changes — is as important as counting how many.
+        </p>
+      </div>
+
     </div>
   </div>
-</div>
 
-<footer>
-  <p>Data Visualisation 2 — FIT2179 · Monash University Malaysia · 2026</p>
-  <p style="margin-top:8px">
-    Data sources: <a href="https://archive.data.gov.my" target="_blank">archive.data.gov.my</a> (Tourism Malaysia Departing Visitor Survey) ·
-    Tourist arrivals: <a href="https://data.worldbank.org/indicator/ST.INT.ARVL" target="_blank">World Bank ST.INT.ARVL</a> + Tourism Malaysia (2021–2022)
-  </p>
-  <p style="margin-top:8px">AI-assisted tools were used for code debugging and language refinement. All analysis, data selection, and visualisation decisions were completed by the author.</p>
-</footer>
+  <footer>
+    <p>Data Visualisation 2 — FIT2179 · Monash University Malaysia · 2026</p>
+    <p style="margin-top:8px">
+      Data sources: <a href="https://archive.data.gov.my" target="_blank">archive.data.gov.my</a> (Tourism Malaysia Departing Visitor Survey) ·
+      Tourist arrivals: <a href="https://data.worldbank.org/indicator/ST.INT.ARVL" target="_blank">World Bank ST.INT.ARVL</a> + Tourism Malaysia (2021–2022)
+    </p>
+    <p style="margin-top:8px">AI-assisted tools were used for code debugging and language refinement. All analysis, data selection, and visualisation decisions were completed by the author.</p>
+  </footer>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- CHARTS SCRIPT: All 10 Vega-Lite visualisations -->
-<!-- ═══════════════════════════════════════════════ -->
+</div><!-- end content-wrapper -->
+
 <script>
 const opt = {actions:false};
 
@@ -403,26 +746,26 @@ const companion = [
 ];
 
 const sourceCountries = [
-  {country:"Singapore",lat:1.35,lon:103.82,spend:575.77},
-  {country:"Thailand",lat:15.87,lon:100.99,spend:348.06},
-  {country:"Indonesia",lat:-0.79,lon:113.92,spend:532.15},
-  {country:"Brunei",lat:4.54,lon:114.73,spend:484.02},
-  {country:"Vietnam",lat:14.06,lon:108.28,spend:603.72},
-  {country:"China",lat:35.86,lon:104.19,spend:661.35},
-  {country:"Japan",lat:36.20,lon:138.25,spend:490.24},
-  {country:"South Korea",lat:35.91,lon:127.77,spend:505.45},
-  {country:"Taiwan",lat:23.70,lon:120.96,spend:600.88},
-  {country:"India",lat:20.59,lon:78.96,spend:560.99},
-  {country:"Saudi Arabia",lat:23.89,lon:45.08,spend:1069.95},
-  {country:"Canada",lat:56.13,lon:-106.35,spend:436.00},
-  {country:"U.S.A",lat:37.09,lon:-95.71,spend:390.77},
-  {country:"Australia",lat:-25.27,lon:133.78,spend:778.12},
-  {country:"Sweden",lat:60.13,lon:18.64,spend:520.44},
-  {country:"United Kingdom",lat:55.38,lon:-3.44,spend:504.87},
-  {country:"Netherlands",lat:52.13,lon:5.29,spend:381.21},
-  {country:"France",lat:46.23,lon:2.21,spend:442.89},
-  {country:"Germany",lat:51.17,lon:10.45,spend:537.69},
-  {country:"Russia",lat:61.52,lon:105.32,spend:645.13}
+  {country:"Singapore",lat:1.35,lon:103.82,spend:575.77,region:"Southeast Asia"},
+  {country:"Thailand",lat:15.87,lon:100.99,spend:348.06,region:"Southeast Asia"},
+  {country:"Indonesia",lat:-0.79,lon:113.92,spend:532.15,region:"Southeast Asia"},
+  {country:"Brunei",lat:4.54,lon:114.73,spend:484.02,region:"Southeast Asia"},
+  {country:"Vietnam",lat:14.06,lon:108.28,spend:603.72,region:"Southeast Asia"},
+  {country:"China",lat:35.86,lon:104.19,spend:661.35,region:"East Asia"},
+  {country:"Japan",lat:36.20,lon:138.25,spend:490.24,region:"East Asia"},
+  {country:"South Korea",lat:35.91,lon:127.77,spend:505.45,region:"East Asia"},
+  {country:"Taiwan",lat:23.70,lon:120.96,spend:600.88,region:"East Asia"},
+  {country:"India",lat:20.59,lon:78.96,spend:560.99,region:"South Asia"},
+  {country:"Saudi Arabia",lat:23.89,lon:45.08,spend:1069.95,region:"Middle East"},
+  {country:"Canada",lat:56.13,lon:-106.35,spend:436.00,region:"North America"},
+  {country:"U.S.A",lat:37.09,lon:-95.71,spend:390.77,region:"North America"},
+  {country:"Australia",lat:-25.27,lon:133.78,spend:778.12,region:"Oceania"},
+  {country:"Sweden",lat:60.13,lon:18.64,spend:520.44,region:"Europe"},
+  {country:"United Kingdom",lat:55.38,lon:-3.44,spend:504.87,region:"Europe"},
+  {country:"Netherlands",lat:52.13,lon:5.29,spend:381.21,region:"Europe"},
+  {country:"France",lat:46.23,lon:2.21,spend:442.89,region:"Europe"},
+  {country:"Germany",lat:51.17,lon:10.45,spend:537.69,region:"Europe"},
+  {country:"Russia",lat:61.52,lon:105.32,spend:645.13,region:"Europe"}
 ];
 
 const arrivalsByCountry = {
@@ -443,175 +786,424 @@ const scatterData = perdiem.filter(d=>d.year===2017).map(d=>({
 // Chart 1
 vegaEmbed('#chart1', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:620, height:320,
+  width:'container', height:340,
   data:{values:arrivals},
   layer:[
-    {mark:{type:'area',color:'#C9A84C',opacity:0.12}},
-    {mark:{type:'line',color:'#C9A84C',strokeWidth:2.5,point:{filled:true,size:36,color:'#C9A84C'}}},
     {
-      data:{values:events},
-      mark:{type:'rule',color:'#999',strokeDash:[4,3],strokeWidth:1},
-      encoding:{x:{field:'year',type:'quantitative',scale:{domain:[1995,2022]}}}
+      mark:{type:'line',color:'#1A3A4A',strokeWidth:2.5},
+      encoding:{
+        x:{field:'year',type:'quantitative',axis:{format:'d',title:null,tickCount:6,grid:false},scale:{domain:[1995,2022]}},
+        y:{field:'arrivals',type:'quantitative',axis:{title:null,tickCount:4,grid:false,format:'~s'},scale:{zero:true}},
+        tooltip:[{field:'year',type:'quantitative',title:'Year',format:'d'},{field:'arrivals',type:'quantitative',format:',.0f',title:'Arrivals'}]
+      }
     },
     {
-      data:{values:events},
-      mark:{type:'text',align:'left',dx:4,dy:-110,fontSize:9.5,color:'#555',fontStyle:'italic'},
+      data:{values:[{year:2003,label:"SARS outbreak"},{year:2008,label:"Global Financial Crisis"},{year:2020,label:"COVID-19"}]},
+      mark:{type:'rule',color:'#bbb',strokeDash:[4,3],strokeWidth:1},
+      encoding:{
+        x:{field:'year',type:'quantitative',scale:{domain:[1995,2022]}}
+      }
+    },
+    {
+      data:{values:[{year:2003,label:"SARS outbreak"},{year:2008,label:"Global Financial Crisis"},{year:2020,label:"COVID-19"}]},
+      mark:{type:'text',align:'left',dx:4,dy:0,fontSize:9,color:'#888',fontStyle:'italic'},
       encoding:{
         x:{field:'year',type:'quantitative',scale:{domain:[1995,2022]}},
         text:{field:'label',type:'nominal'}
       }
     },
     {
-      transform:[{filter:'datum.year==2014'}],
-      mark:{type:'text',dy:-14,fontSize:10,color:'#1A1A2E',fontWeight:'bold'},
-      encoding:{text:{value:'▲ Peak 27.4M'}}
-    },
-    {
-      transform:[{filter:'datum.year==2021'}],
-      mark:{type:'text',dy:-14,fontSize:10,color:'#C0392B',fontWeight:'bold'},
-      encoding:{text:{value:'▼ 134,816'}}
-    }
-  ],
-  encoding:{
-    x:{field:'year',type:'quantitative',axis:{format:'d',title:'Year',tickCount:10},scale:{domain:[1995,2022]}},
-    y:{field:'arrivals',type:'quantitative',axis:{title:'Tourist Arrivals',format:',.0f'},scale:{zero:false}},
-    tooltip:[{field:'year',type:'quantitative',title:'Year',format:'d'},{field:'arrivals',type:'quantitative',format:',.0f',title:'Arrivals'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 2
-vegaEmbed('#chart2', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:750, height:400,
-  data:{values:perdiem.filter(d=>d.year===2017)},
-  mark:{type:'bar'},
-  encoding:{
-    y:{field:'country',type:'nominal',sort:'-x',axis:{title:null}},
-    x:{field:'spend',type:'quantitative',axis:{title:'Avg Daily Spend (RM)'}},
-    color:{field:'spend',type:'quantitative',scale:{scheme:'orangered'},legend:null},
-    tooltip:[{field:'country',title:'Country'},{field:'spend',title:'RM/day',format:'.0f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 3
-vegaEmbed('#chart3', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:460, height:280,
-  data:{values:perdiem.filter(d=>['Brunei','Saudi Arabia','Australia','Russia','China','United Kingdom'].includes(d.country))},
-  mark:{type:'line',point:true,strokeWidth:2},
-  params:[{name:'hl',select:{type:'point',fields:['country']},bind:'legend'}],
-  encoding:{
-    x:{field:'year',type:'quantitative',axis:{format:'d',title:'Year'},scale:{domain:[2015,2018]}},
-    y:{field:'spend',type:'quantitative',axis:{title:'RM per day'},scale:{zero:false}},
-    color:{field:'country',type:'nominal',legend:{title:'Country'}},
-    opacity:{condition:{param:'hl',value:1},value:0.15},
-    tooltip:[{field:'country'},{field:'year',type:'quantitative',format:'d'},{field:'spend',title:'RM/day',format:'.0f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 4
-vegaEmbed('#chart4', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:180, height:360,
-  data:{values:perdiem},
-  mark:'rect',
-  encoding:{
-    x:{field:'year',type:'ordinal',axis:{title:'Year'}},
-    y:{field:'country',type:'nominal',axis:{title:null}},
-    color:{field:'spend',type:'quantitative',scale:{scheme:'blues'},legend:{title:'RM/day'}},
-    tooltip:[{field:'country'},{field:'year',type:'ordinal'},{field:'spend',title:'RM/day',format:'.0f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 5
-vegaEmbed('#chart5', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:440, height:300,
-  data:{values:occupation.filter(d=>d.year===2016)},
-  mark:{type:'bar'},
-  encoding:{
-    y:{field:'occupation',type:'nominal',sort:'-x',axis:{title:null}},
-    x:{field:'pct',type:'quantitative',axis:{title:'Percentage (%)'}},
-    color:{field:'pct',type:'quantitative',scale:{scheme:'tealblues'},legend:null},
-    tooltip:[{field:'occupation',title:'Occupation'},{field:'pct',title:'%',format:'.1f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 6
-vegaEmbed('#chart6', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:380, height:380,
-  data:{values:companion.filter(d=>d.year===2016)},
-  mark:{type:'arc',innerRadius:65},
-  encoding:{
-    theta:{field:'pct',type:'quantitative'},
-    color:{field:'companion',type:'nominal',legend:{title:'Travel With'}},
-    tooltip:[{field:'companion',title:'Travel With'},{field:'pct',title:'%',format:'.1f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 7
-vegaEmbed('#chart7', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:700, height:300,
-  data:{values:occupation.filter(d=>['Professional/Technical','Management/Admin','Businessman','Housewife','Student','Government'].includes(d.occupation))},
-  mark:'bar',
-  params:[{name:'yr',select:{type:'point',fields:['year']},bind:'legend'}],
-  encoding:{
-    x:{field:'occupation',type:'nominal',sort:{field:'pct',op:'sum',order:'descending'},axis:{title:null,labelAngle:-20}},
-    y:{field:'pct',type:'quantitative',axis:{title:'%'}},
-    xOffset:{field:'year',type:'nominal'},
-    color:{field:'year',type:'nominal',scale:{domain:[2016,2017],range:['#C9A84C','#1A1A2E']},legend:{title:'Year'}},
-    opacity:{condition:{param:'yr',value:1},value:0.3},
-    tooltip:[{field:'occupation'},{field:'year'},{field:'pct',title:'%',format:'.1f'}]
-  },
-  config:{background:'white',view:{stroke:null}}
-}, opt);
-
-// Chart 8
-vegaEmbed('#chart8', {
-  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:620, height:380,
-  projection:{type:'naturalEarth1'},
-  layer:[
-    {
-      data:{url:'https://raw.githubusercontent.com/vega/vega/master/packages/vega-loader/test/data/world-110m.json',format:{type:'topojson',feature:'countries'}},
-      mark:{type:'geoshape',fill:'#e8e0d0',stroke:'white',strokeWidth:0.5}
-    },
-    {
-      data:{values:sourceCountries},
-      mark:{type:'circle',opacity:0.8},
+      data:{values:[{year:2014,arrivals:27437000}]},
+      mark:{type:'text',dy:-14,fontSize:10,color:'#1A3A4A',fontWeight:'bold'},
       encoding:{
-        longitude:{field:'lon',type:'quantitative'},
-        latitude:{field:'lat',type:'quantitative'},
-        size:{field:'spend',type:'quantitative',scale:{range:[80,1200]},legend:{title:'RM/day'}},
-        color:{field:'spend',type:'quantitative',scale:{scheme:'orangered'},legend:null},
-        tooltip:[{field:'country',title:'Country'},{field:'spend',title:'RM/day',format:'.0f'}]
+        x:{field:'year',type:'quantitative'},
+        y:{field:'arrivals',type:'quantitative'},
+        text:{value:'▲ Peak 27.4M'}
+      }
+    },
+    {
+      data:{values:[{year:2021,arrivals:134816}]},
+      mark:{type:'text',dy:-14,fontSize:10,color:'#C0392B',fontWeight:'bold'},
+      encoding:{
+        x:{field:'year',type:'quantitative'},
+        y:{field:'arrivals',type:'quantitative'},
+        text:{value:'▼ 134,816'}
       }
     }
   ],
   config:{background:'white',view:{stroke:null}}
 }, opt);
 
-// Chart 9
+// Chart 3 - 修复连线错误，添加 detail 字段
+vegaEmbed('#chart3', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  width:'container', height:260,
+  data:{values:perdiem.filter(d=>['Brunei','Saudi Arabia','Australia','Russia','China','United Kingdom'].includes(d.country))},
+  layer:[
+    {
+      mark:{type:'line',strokeWidth:1,point:false},
+      transform:[{filter:"datum.country!='Saudi Arabia'&&datum.country!='Brunei'&&datum.country!='Australia'"}],
+      encoding:{
+        x:{field:'year',type:'quantitative',axis:{format:'d',title:null,grid:false},scale:{domain:[2015,2018]}},
+        y:{field:'spend',type:'quantitative',axis:{title:'RM/day',tickCount:3,grid:false},scale:{zero:false}},
+        detail:{field:'country',type:'nominal'},
+        color:{value:'#ebebeb'},
+        tooltip:[{field:'country'},{field:'year',type:'quantitative',format:'d'},{field:'spend',title:'RM/day',format:'.0f'}]
+      }
+    },
+    {
+      mark:{type:'line',strokeWidth:1.8,point:false},
+      transform:[{filter:"datum.country=='Brunei'||datum.country=='Australia'"}],
+      encoding:{
+        x:{field:'year',type:'quantitative',axis:{format:'d',title:null,grid:false},scale:{domain:[2015,2018]}},
+        y:{field:'spend',type:'quantitative',axis:{title:'RM/day',tickCount:3,grid:false},scale:{zero:false}},
+        detail:{field:'country',type:'nominal'},
+        color:{value:'#999'},
+        tooltip:[{field:'country'},{field:'year',type:'quantitative',format:'d'},{field:'spend',title:'RM/day',format:'.0f'}]
+      }
+    },
+    {
+      mark:{type:'line',strokeWidth:2.8,point:false},
+      transform:[{filter:"datum.country=='Saudi Arabia'"}],
+      encoding:{
+        x:{field:'year',type:'quantitative',axis:{format:'d',title:null,grid:false},scale:{domain:[2015,2018]}},
+        y:{field:'spend',type:'quantitative',axis:{title:'RM/day',tickCount:3,grid:false},scale:{zero:false}},
+        color:{value:'#2471A3'},
+        tooltip:[{field:'country'},{field:'year',type:'quantitative',format:'d'},{field:'spend',title:'RM/day',format:'.0f'}]
+      }
+    },
+    {
+      transform:[{filter:"datum.year==2018&&datum.country=='Saudi Arabia'"}],
+      mark:{type:'text',align:'left',dx:6,fontSize:10,color:'#2471A3',fontWeight:'bold'},
+      encoding:{
+        x:{field:'year',type:'quantitative',scale:{domain:[2015,2018]}},
+        y:{field:'spend',type:'quantitative',scale:{zero:false}},
+        text:{field:'country',type:'nominal'}
+      }
+    },
+    {
+      transform:[{filter:"datum.year==2018&&(datum.country=='Brunei'||datum.country=='Australia')"}],
+      mark:{type:'text',align:'left',dx:6,fontSize:9,color:'#999'},
+      encoding:{
+        x:{field:'year',type:'quantitative',scale:{domain:[2015,2018]}},
+        y:{field:'spend',type:'quantitative',scale:{zero:false}},
+        text:{field:'country',type:'nominal'}
+      }
+    }
+  ],
+  config:{background:'white',view:{stroke:null}}
+}, opt);
+
+const regionMap = {
+  "Singapore":"Southeast Asia","Thailand":"Southeast Asia",
+  "Indonesia":"Southeast Asia","Brunei":"Southeast Asia","Vietnam":"Southeast Asia",
+  "China":"East Asia","Japan":"East Asia","South Korea":"East Asia","Taiwan":"East Asia",
+  "India":"South Asia",
+  "Saudi Arabia":"Middle East",
+  "Canada":"Western Countries","U.S.A":"Western Countries","Australia":"Western Countries",
+  "Sweden":"Western Countries","United Kingdom":"Western Countries",
+  "Netherlands":"Western Countries","France":"Western Countries",
+  "Germany":"Western Countries","Russia":"Western Countries"
+};
+const perdiemWithRegion = perdiem.map(d=>({...d, region:regionMap[d.country]||'Other'}));
+
+// Chart Facet — Top 5 国家消费趋势小多图
+vegaEmbed('#chart_facet', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  data:{values:perdiem.filter(d=>['Saudi Arabia','Brunei','Australia','China','Singapore'].includes(d.country))},
+  facet:{
+    row:{
+      field:'country',
+      type:'nominal',
+      sort:['Saudi Arabia','Brunei','Australia','China','Singapore'],
+      header:{
+        labelAngle:0,
+        labelAlign:'left',
+        labelFontSize:11,
+        labelColor:'#333',
+        labelFontWeight:'bold',
+        title:null
+      }
+    }
+  },
+  spec:{
+    width:'container',
+    height:60,
+    mark:{type:'line',strokeWidth:2.5,point:{filled:true,size:40}},
+    encoding:{
+      x:{
+        field:'year',
+        type:'ordinal',
+        axis:{title:null,labelAngle:0,grid:false}
+      },
+      y:{
+        field:'spend',
+        type:'quantitative',
+        axis:{title:null,tickCount:2,gridColor:'#f5f5f5'},
+        scale:{zero:false}
+      },
+      color:{
+        condition:{test:"datum.country=='Saudi Arabia'",value:'#2471A3'},
+        value:'#999'
+      },
+      tooltip:[
+        {field:'country',title:'Country'},
+        {field:'year',type:'ordinal',title:'Year'},
+        {field:'spend',title:'RM/day',format:'.0f'}
+      ]
+    }
+  },
+  config:{background:'white',view:{stroke:'#eee'}}
+}, opt);
+const perdiem12 = perdiem.filter(d=>[
+  'Saudi Arabia','Australia','Brunei','Russia','United Kingdom',
+  'China','Taiwan','Singapore','India','South Korea','Japan','Indonesia'
+].includes(d.country));
+
+vegaEmbed('#chart4', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  width:'container', height:300,
+  data:{values:perdiem12},
+  mark:'rect',
+  encoding:{
+   x:{field:'year',type:'ordinal',axis:{title:null,labelAngle:0}},
+    y:{field:'country',type:'nominal',sort:{field:'spend',op:'mean',order:'descending'},axis:{title:null}},
+    color:{field:'spend',type:'quantitative',scale:{scheme:'blues'},legend:{title:'RM/day'}},
+    tooltip:[{field:'country'},{field:'year',type:'ordinal'},{field:'spend',title:'RM/day',format:'.0f'}]
+  },
+  config:{background:'white',view:{stroke:null}}
+}, opt);
+
+const occTop6 = occupation.filter(d=>d.year===2016&&[
+  'Professional/Technical','Management/Admin','Businessman','Housewife','Sales/Clerical','Student'
+].includes(d.occupation));
+const occOthers2016 = occupation.filter(d=>d.year===2016&&![
+  'Professional/Technical','Management/Admin','Businessman','Housewife','Sales/Clerical','Student'
+].includes(d.occupation)).reduce((a,b)=>a+b.pct,0);
+const occ6Data = [
+  ...occTop6,
+  {year:2016,occupation:'Others*',pct:Math.round(occOthers2016)}
+];
+
+vegaEmbed('#chart5', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  width:'container', height:240,
+  data:{values:occ6Data},
+  layer:[
+    {
+      mark:{type:'bar'},
+      encoding:{
+        y:{
+          field:'occupation',
+          type:'nominal',
+          sort:{field:'pct',op:'sum',order:'descending'},
+          axis:{title:null}
+        },
+        x:{
+          field:'pct',
+          type:'quantitative',
+          axis:{title:null,labels:false,ticks:false,grid:false},
+          scale:{domain:[0,35]}
+        },
+        color:{
+          condition:{test:"datum.occupation=='Professional/Technical'||datum.occupation=='Management/Admin'",value:'#1A3A4A'},
+          value:'#ccc'
+        },
+        tooltip:[{field:'occupation',title:'Occupation'},{field:'pct',title:'%',format:'.0f'}]
+      }
+    },
+    {
+      mark:{type:'text',align:'left',dx:4,fontSize:10},
+      encoding:{
+        y:{
+          field:'occupation',
+          type:'nominal',
+          sort:{field:'pct',op:'sum',order:'descending'}
+        },
+        x:{field:'pct',type:'quantitative',scale:{domain:[0,35]}},
+        text:{field:'pct',type:'quantitative',format:'.0f'},
+        color:{
+          condition:{test:"datum.occupation=='Professional/Technical'||datum.occupation=='Management/Admin'",value:'#1A3A4A'},
+          value:'#888'
+        }
+      }
+    }
+  ],
+  config:{background:'white',view:{stroke:null}}
+}, opt);
+
+const companionMerged = [
+  {companion:'With Spouse', pct:31.86},
+  {companion:'With Family', pct:26.32},
+  {companion:'Alone', pct:16.27},
+  {companion:'With Friends', pct:17.37},
+  {companion:'Others', pct:8.18}
+];
+
+vegaEmbed('#chart6', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  width:340, height:340,
+  data:{values:companionMerged},
+  layer:[
+    {
+      mark:{type:'arc',innerRadius:70},
+      encoding:{
+        theta:{field:'pct',type:'quantitative',sort:'descending'},
+        color:{
+          field:'companion',
+          type:'nominal',
+          scale:{
+            domain:['With Spouse','With Family','With Friends','Alone','Others'],
+            range:['#E8A838','#2471A3','#8E44AD','#E74C3C','#BDC3C7']
+          },
+          legend:{title:'Travel With'}
+        },
+        tooltip:[{field:'companion',title:'Travel With'},{field:'pct',title:'%',format:'.1f'}]
+      }
+    },
+    {
+      mark:{type:'text',radius:0,fontSize:18,fontWeight:'bold',color:'#1A3A4A'},
+      encoding:{text:{value:'58%'}}
+    },
+    {
+      mark:{type:'text',radius:0,dy:22,fontSize:10,color:'#888'},
+      encoding:{text:{value:'with spouse'}}
+    },
+    {
+      mark:{type:'text',radius:0,dy:36,fontSize:10,color:'#888'},
+      encoding:{text:{value:'or family'}}
+    }
+  ],
+  config:{background:'white',view:{stroke:null}}
+}, opt);
+
+vegaEmbed('#chart7', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  width:'container', height:280,
+  data:{values:occupation.filter(d=>['Professional/Technical','Management/Admin','Businessman','Housewife'].includes(d.occupation))},
+  layer:[
+    {
+      mark:'bar',
+      encoding:{
+        x:{field:'pct',type:'quantitative',axis:{title:'%',grid:false,tickCount:5}},
+        y:{field:'occupation',type:'nominal',sort:{field:'pct',op:'sum',order:'descending'},axis:{title:null}},
+        yOffset:{field:'year',type:'nominal'},
+        color:{
+          field:'year',type:'nominal',
+          scale:{domain:[2016,2017],range:['#4C9BE8','#1A3A4A']},
+          legend:{title:'Year'}
+        },
+        tooltip:[{field:'occupation'},{field:'year'},{field:'pct',title:'%',format:'.1f'}]
+      }
+    },
+    {
+      mark:{type:'text',align:'left',dx:4,fontSize:9},
+      encoding:{
+        x:{field:'pct',type:'quantitative'},
+        y:{field:'occupation',type:'nominal',sort:{field:'pct',op:'sum',order:'descending'}},
+        yOffset:{field:'year',type:'nominal'},
+        text:{field:'pct',type:'quantitative',format:'.1f'},
+        color:{value:'#555'}
+      }
+    }
+  ],
+  config:{background:'white',view:{stroke:null}}
+}, opt);
+
+// Chart 8 — 底图改用 cdn.jsdelivr.net
+vegaEmbed('#chart8', {
+  $schema:'https://vega.github.io/schema/vega-lite/v5.json',
+  width:'container', height:450,
+  projection:{type:'naturalEarth1'},
+  layer:[
+    {
+      data:{
+        url:'https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json',
+        format:{type:'topojson',feature:'countries'}
+      },
+      mark:{type:'geoshape',fill:'#e8e0d0',stroke:'white',strokeWidth:0.5}
+    },
+    {
+      data:{values:sourceCountries},
+      mark:{type:'circle',opacity:0.55,stroke:'white',strokeWidth:0.8},
+      encoding:{
+        longitude:{field:'lon',type:'quantitative'},
+        latitude:{field:'lat',type:'quantitative'},
+        size:{
+          field:'spend',
+          type:'quantitative',
+          scale:{type:'pow',exponent:2,range:[20,3500]},
+          legend:{title:'Avg Daily Spend (RM)',values:[400,600,800,1000]}
+        },
+        color:{
+          field:'region',
+          type:'nominal',
+          scale:{
+            domain:['East Asia','Middle East','South Asia','Southeast Asia','Europe','North America','Oceania'],
+            range:['#4C9BE8','#F5A623','#E74C3C','#48C9B0','#8E44AD','#2ECC71','#E91E8C']
+          },
+          legend:{title:'Region'}
+        },
+        tooltip:[
+          {field:'country',title:'Country'},
+          {field:'spend',title:'RM/day',format:'.0f'},
+          {field:'region',title:'Region'}
+        ]
+      }
+    },
+    {
+      data:{values:sourceCountries},
+      transform:[{filter:"datum.country=='Saudi Arabia'||datum.country=='Singapore'||datum.country=='China'||datum.country=='Australia'"}],
+      mark:{type:'text',dx:8,dy:-5,fontSize:10,color:'#333'},
+      encoding:{
+        longitude:{field:'lon',type:'quantitative'},
+        latitude:{field:'lat',type:'quantitative'},
+        text:{field:'country',type:'nominal'}
+      }
+    }
+  ],
+  config:{background:'white',view:{stroke:null}}
+}, opt);
+
+// Chart 9 — 灰色气泡加透明度
 vegaEmbed('#chart9', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:700, height:420,
+  width:'container', height:400,
   data:{values:scatterData},
   layer:[
     {
-      mark:{type:'point',filled:true,opacity:0.85},
+      mark:{type:'point',filled:true,strokeWidth:1},
       encoding:{
-        x:{field:'arrivals',type:'quantitative',axis:{title:'Tourist Arrivals (2017)',format:',.0f'},scale:{type:'log'}},
-        y:{field:'spend',type:'quantitative',axis:{title:'Avg Daily Spend, RM (2017)'},scale:{zero:false}},
-        size:{field:'total',type:'quantitative',scale:{range:[60,1400]},legend:{title:'Est. total spend (RM M)',orient:'bottom'}},
-        color:{field:'spend',type:'quantitative',scale:{scheme:'orangered'},legend:null},
+        x:{
+          field:'arrivals',
+          type:'quantitative',
+          axis:{title:'Tourist Arrivals (2017)',format:'~s',grid:false,tickCount:4},
+          scale:{type:'log'}
+        },
+        y:{
+          field:'spend',
+          type:'quantitative',
+          axis:{title:'Avg Daily Spend (RM)',tickCount:4,grid:false},
+          scale:{zero:false}
+        },
+        size:{
+          field:'total',
+          type:'quantitative',
+          scale:{range:[60,1400]},
+          legend:{title:'Est. Total Spend (RM M)',orient:'bottom'}
+        },
+        color:{
+          condition:{test:"indexof(['Singapore','Saudi Arabia','Australia','China'], datum.country) >= 0",value:'#1A3A4A'},
+          value:'#ddd'
+        },
+        opacity:{
+          condition:{test:"indexof(['Singapore','Saudi Arabia','Australia','China'], datum.country) >= 0",value:0.85},
+          value:0.4
+        },
+        stroke:{
+          condition:{test:"indexof(['Singapore','Saudi Arabia','Australia','China'], datum.country) >= 0",value:'#004B87'},
+          value:'#ccc'
+        },
         tooltip:[
           {field:'country',title:'Country'},
           {field:'arrivals',title:'Arrivals',format:',.0f'},
@@ -621,31 +1213,57 @@ vegaEmbed('#chart9', {
       }
     },
     {
-      transform:[{filter:"datum.country=='Singapore'||datum.country=='Saudi Arabia'||datum.country=='China'||datum.country=='Australia'||datum.country=='Thailand'||datum.country=='Indonesia'"}],
-      mark:{type:'text',align:'left',dx:8,dy:-4,fontSize:10,color:'#333'},
-      encoding:{
-        x:{field:'arrivals',type:'quantitative',scale:{type:'log'}},
-        y:{field:'spend',type:'quantitative',scale:{zero:false}},
-        text:{field:'country',type:'nominal'}
-      }
-    }
+  transform:[{filter:"datum.country=='Singapore'||datum.country=='Saudi Arabia'"}],
+  mark:{type:'text',align:'left',dx:18,dy:-4,fontSize:10,color:'#1A3A4A',fontWeight:'600'},
+  encoding:{
+    x:{field:'arrivals',type:'quantitative',scale:{type:'log'}},
+    y:{field:'spend',type:'quantitative',scale:{zero:false}},
+    text:{field:'country',type:'nominal'}
+  }
+},
+{
+  transform:[{filter:"datum.country=='Australia'||datum.country=='China'"}],
+  mark:{type:'text',align:'left',dx:18,dy:-4,fontSize:10,color:'#999'},
+  encoding:{
+    x:{field:'arrivals',type:'quantitative',scale:{type:'log'}},
+    y:{field:'spend',type:'quantitative',scale:{zero:false}},
+    text:{field:'country',type:'nominal'}
+  }
+}
   ],
   config:{background:'white',view:{stroke:null}}
 }, opt);
 
-// Chart 10
 vegaEmbed('#chart10', {
   $schema:'https://vega.github.io/schema/vega-lite/v5.json',
-  width:700, height:300,
-  data:{values:companion.filter(d=>d.companion!=='Others'&&d.companion!=='With Incentive Group'&&d.companion!=='Student Group')},
-  mark:'bar',
-  encoding:{
-    x:{field:'companion',type:'nominal',sort:{field:'pct',op:'sum',order:'descending'},axis:{title:null,labelAngle:-20}},
-    y:{field:'pct',type:'quantitative',axis:{title:'%'}},
-    xOffset:{field:'year',type:'nominal'},
-    color:{field:'year',type:'nominal',scale:{domain:[2016,2017],range:['#C9A84C','#1A1A2E']},legend:{title:'Year'}},
-    tooltip:[{field:'companion',title:'Travel With'},{field:'year'},{field:'pct',title:'%',format:'.1f'}]
-  },
+  width:'container', height:280,
+  data:{values:companion.filter(d=>['With Spouse','With Family','Alone','With Friends'].includes(d.companion))},
+  layer:[
+    {
+      mark:'bar',
+      encoding:{
+        x:{field:'companion',type:'nominal',sort:{field:'pct',op:'sum',order:'descending'},axis:{title:null,labelAngle:-15}},
+        y:{field:'pct',type:'quantitative',axis:{title:'%',grid:false,tickCount:5}},
+        xOffset:{field:'year',type:'nominal'},
+        color:{
+          field:'year',type:'nominal',
+          scale:{domain:[2016,2017],range:['#4C9BE8','#1A3A4A']},
+          legend:{title:'Year'}
+        },
+        tooltip:[{field:'companion',title:'Travel With'},{field:'year'},{field:'pct',title:'%',format:'.1f'}]
+      }
+    },
+    {
+      mark:{type:'text',dy:-8,fontSize:9},
+      encoding:{
+        x:{field:'companion',type:'nominal',sort:{field:'pct',op:'sum',order:'descending'}},
+        y:{field:'pct',type:'quantitative'},
+        xOffset:{field:'year',type:'nominal'},
+        text:{field:'pct',type:'quantitative',format:'.1f'},
+        color:{value:'#555'}
+      }
+    }
+  ],
   config:{background:'white',view:{stroke:null}}
 }, opt);
 </script>

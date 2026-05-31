@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 440,
+  "height": 300,
+  "data": {
+    "values": [
+      {"year":2016,"occupation":"Professional/Technical","pct":25.58},
+      {"year":2016,"occupation":"Management/Admin","pct":23.53},
+      {"year":2016,"occupation":"Businessman","pct":12.95},
+      {"year":2016,"occupation":"Housewife","pct":7.09},
+      {"year":2016,"occupation":"Student","pct":5.30},
+      {"year":2016,"occupation":"Government","pct":5.64},
+      {"year":2016,"occupation":"Retired","pct":4.76},
+      {"year":2016,"occupation":"Teacher/Lecturer","pct":3.10},
+      {"year":2016,"occupation":"Sales/Clerical","pct":6.16},
+      {"year":2016,"occupation":"Manual Worker","pct":2.60},
+      {"year":2016,"occupation":"Unemployed","pct":1.23},
+      {"year":2016,"occupation":"Others","pct":0.97}
+    ]
+  },
+  "mark": {"type": "bar"},
+  "encoding": {
+    "y": {"field": "occupation", "type": "nominal", "sort": "-x", "axis": {"title": null}},
+    "x": {"field": "pct", "type": "quantitative", "axis": {"title": "Percentage (%)"}},
+    "color": {"field": "pct", "type": "quantitative", "scale": {"scheme": "tealblues"}, "legend": null},
+    "tooltip": [
+      {"field": "occupation", "title": "Occupation"},
+      {"field": "pct", "title": "%", "format": ".1f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

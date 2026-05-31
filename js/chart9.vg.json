@@ -1,0 +1,70 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 850,
+  "height": 420,
+  "data": {
+    "values": [
+      {"country":"Singapore","spend":575.77,"arrivals":10355900,"total":5958},
+      {"country":"Thailand","spend":348.06,"arrivals":1150000,"total":400},
+      {"country":"Indonesia","spend":532.15,"arrivals":3100000,"total":1650},
+      {"country":"Brunei","spend":484.02,"arrivals":1250000,"total":605},
+      {"country":"Vietnam","spend":603.72,"arrivals":420000,"total":254},
+      {"country":"China","spend":661.35,"arrivals":2010000,"total":1329},
+      {"country":"Japan","spend":490.24,"arrivals":390000,"total":191},
+      {"country":"South Korea","spend":505.45,"arrivals":330000,"total":167},
+      {"country":"Taiwan","spend":600.88,"arrivals":280000,"total":168},
+      {"country":"India","spend":560.99,"arrivals":640000,"total":359},
+      {"country":"Saudi Arabia","spend":1069.95,"arrivals":180000,"total":193},
+      {"country":"Canada","spend":436.00,"arrivals":110000,"total":48},
+      {"country":"U.S.A","spend":390.77,"arrivals":340000,"total":133},
+      {"country":"Australia","spend":778.12,"arrivals":460000,"total":358},
+      {"country":"Sweden","spend":520.44,"arrivals":90000,"total":47},
+      {"country":"United Kingdom","spend":504.87,"arrivals":380000,"total":192},
+      {"country":"Netherlands","spend":381.21,"arrivals":100000,"total":38},
+      {"country":"France","spend":442.89,"arrivals":180000,"total":80},
+      {"country":"Germany","spend":537.69,"arrivals":190000,"total":102},
+      {"country":"Russia","spend":645.13,"arrivals":75000,"total":48}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "point", "filled": true, "opacity": 0.85},
+      "encoding": {
+        "x": {
+          "field": "arrivals", "type": "quantitative",
+          "axis": {"title": "Tourist Arrivals (2017)", "format": ",.0f"},
+          "scale": {"type": "log"}
+        },
+        "y": {
+          "field": "spend", "type": "quantitative",
+          "axis": {"title": "Avg Daily Spend, RM (2017)"},
+          "scale": {"zero": false}
+        },
+        "size": {
+          "field": "total", "type": "quantitative",
+          "scale": {"range": [60,1400]},
+          "legend": {"title": "Est. total spend (RM M)", "orient": "bottom"}
+        },
+        "color": {"value": "#3A6B8C"},
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "arrivals", "title": "Arrivals", "format": ",.0f"},
+          {"field": "spend", "title": "RM/day", "format": ".0f"},
+          {"field": "total", "title": "Est. total (RM M)", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.country=='Singapore'||datum.country=='Saudi Arabia'||datum.country=='China'||datum.country=='Australia'||datum.country=='Thailand'||datum.country=='Indonesia'"}
+      ],
+      "mark": {"type": "text", "align": "left", "dx": 8, "dy": -4, "fontSize": 10, "color": "#333"},
+      "encoding": {
+        "x": {"field": "arrivals", "type": "quantitative", "scale": {"type": "log"}},
+        "y": {"field": "spend", "type": "quantitative", "scale": {"zero": false}},
+        "text": {"field": "country", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {"background": "white", "view": {"stroke": null}}
+}

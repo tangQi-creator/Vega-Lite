@@ -1,0 +1,28 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 380,
+  "height": 380,
+  "data": {
+    "values": [
+      {"year":2016,"companion":"With Spouse","pct":31.86},
+      {"year":2016,"companion":"With Family","pct":26.32},
+      {"year":2016,"companion":"With Friends","pct":17.37},
+      {"year":2016,"companion":"Alone","pct":16.27},
+      {"year":2016,"companion":"With Children","pct":2.82},
+      {"year":2016,"companion":"With Business Associate","pct":2.76},
+      {"year":2016,"companion":"With Incentive Group","pct":0.88},
+      {"year":2016,"companion":"Student Group","pct":0.58},
+      {"year":2016,"companion":"Others","pct":1.14}
+    ]
+  },
+  "mark": {"type": "arc", "innerRadius": 65},
+  "encoding": {
+    "theta": {"field": "pct", "type": "quantitative"},
+    "color": {"field": "companion", "type": "nominal", "legend": {"title": "Travel With"}},
+    "tooltip": [
+      {"field": "companion", "title": "Travel With"},
+      {"field": "pct", "title": "%", "format": ".1f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 320,
+  "data": {
+    "values": [
+      {"year":1995,"arrivals":7469000},{"year":1996,"arrivals":7138000},{"year":1997,"arrivals":6211000},
+      {"year":1998,"arrivals":5551000},{"year":1999,"arrivals":7931000},{"year":2000,"arrivals":10222000},
+      {"year":2001,"arrivals":12775000},{"year":2002,"arrivals":13292000},{"year":2003,"arrivals":10577000},
+      {"year":2004,"arrivals":15703000},{"year":2005,"arrivals":16431000},{"year":2006,"arrivals":17547000},
+      {"year":2007,"arrivals":20973000},{"year":2008,"arrivals":22052000},{"year":2009,"arrivals":23646000},
+      {"year":2010,"arrivals":24577000},{"year":2011,"arrivals":24714000},{"year":2012,"arrivals":25033000},
+      {"year":2013,"arrivals":25715000},{"year":2014,"arrivals":27437000},{"year":2015,"arrivals":25721000},
+      {"year":2016,"arrivals":26757000},{"year":2017,"arrivals":25948000},{"year":2018,"arrivals":25832000},
+      {"year":2019,"arrivals":26101000},{"year":2020,"arrivals":4333000},{"year":2021,"arrivals":134816},
+      {"year":2022,"arrivals":10070042}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "area", "color": "#C9A84C", "opacity": 0.12}
+    },
+    {
+      "mark": {"type": "line", "color": "#C9A84C", "strokeWidth": 2.5, "point": {"filled": true, "size": 36, "color": "#C9A84C"}}
+    },
+    {
+      "data": {"values": [
+        {"year":2003,"label":"SARS outbreak"},
+        {"year":2008,"label":"Global Financial Crisis"},
+        {"year":2020,"label":"COVID-19 border closure"}
+      ]},
+      "mark": {"type": "rule", "color": "#999", "strokeDash": [4,3], "strokeWidth": 1},
+      "encoding": {"x": {"field": "year", "type": "quantitative", "scale": {"domain": [1995,2022]}}}
+    },
+    {
+      "data": {"values": [
+        {"year":2003,"label":"SARS outbreak"},
+        {"year":2008,"label":"Global Financial Crisis"},
+        {"year":2020,"label":"COVID-19 border closure"}
+      ]},
+      "mark": {"type": "text", "align": "left", "dx": 4, "dy": -110, "fontSize": 9.5, "color": "#555", "fontStyle": "italic"},
+      "encoding": {
+        "x": {"field": "year", "type": "quantitative", "scale": {"domain": [1995,2022]}},
+        "text": {"field": "label", "type": "nominal"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year==2014"}],
+      "mark": {"type": "text", "dy": -14, "fontSize": 10, "color": "#1A1A2E", "fontWeight": "bold"},
+      "encoding": {"text": {"value": "▲ Peak 27.4M"}}
+    },
+    {
+      "transform": [{"filter": "datum.year==2021"}],
+      "mark": {"type": "text", "dy": -14, "fontSize": 10, "color": "#C0392B", "fontWeight": "bold"},
+      "encoding": {"text": {"value": "▼ 134,816"}}
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year", "type": "quantitative",
+      "axis": {"format": "d", "title": "Year", "tickCount": 10},
+      "scale": {"domain": [1995,2022]}
+    },
+    "y": {
+      "field": "arrivals", "type": "quantitative",
+      "axis": {"title": "Tourist Arrivals", "format": ",.0f"},
+      "scale": {"zero": false}
+    },
+    "tooltip": [
+      {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
+      {"field": "arrivals", "type": "quantitative", "format": ",.0f", "title": "Arrivals"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

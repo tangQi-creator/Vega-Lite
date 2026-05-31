@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 400,
+  "data": {
+    "values": [
+      {"year":2017,"country":"Singapore","spend":575.77},
+      {"year":2017,"country":"Thailand","spend":348.06},
+      {"year":2017,"country":"Indonesia","spend":532.15},
+      {"year":2017,"country":"Brunei","spend":484.02},
+      {"year":2017,"country":"Vietnam","spend":603.72},
+      {"year":2017,"country":"China","spend":661.35},
+      {"year":2017,"country":"Japan","spend":490.24},
+      {"year":2017,"country":"South Korea","spend":505.45},
+      {"year":2017,"country":"Taiwan","spend":600.88},
+      {"year":2017,"country":"India","spend":560.99},
+      {"year":2017,"country":"Saudi Arabia","spend":1069.95},
+      {"year":2017,"country":"Canada","spend":436.00},
+      {"year":2017,"country":"U.S.A","spend":390.77},
+      {"year":2017,"country":"Australia","spend":778.12},
+      {"year":2017,"country":"Sweden","spend":520.44},
+      {"year":2017,"country":"United Kingdom","spend":504.87},
+      {"year":2017,"country":"Netherlands","spend":381.21},
+      {"year":2017,"country":"France","spend":442.89},
+      {"year":2017,"country":"Germany","spend":537.69},
+      {"year":2017,"country":"Russia","spend":645.13}
+    ]
+  },
+  "mark": {"type": "bar"},
+  "encoding": {
+    "y": {"field": "country", "type": "nominal", "sort": "-x", "axis": {"title": null}},
+    "x": {"field": "spend", "type": "quantitative", "axis": {"title": "Avg Daily Spend (RM)"}},
+    "color": {"field": "spend", "type": "quantitative", "scale": {"scheme": "orangered"}, "legend": null},
+    "tooltip": [
+      {"field": "country", "title": "Country"},
+      {"field": "spend", "title": "RM/day", "format": ".0f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

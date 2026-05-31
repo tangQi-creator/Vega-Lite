@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 450,
+  "projection": {"type": "naturalEarth1"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega/master/packages/vega-loader/test/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#e8e0d0", "stroke": "white", "strokeWidth": 0.5}
+    },
+    {
+      "data": {
+        "values": [
+          {"country":"Singapore","lat":1.35,"lon":103.82,"spend":575.77,"region":"Southeast Asia"},
+          {"country":"Thailand","lat":15.87,"lon":100.99,"spend":348.06,"region":"Southeast Asia"},
+          {"country":"Indonesia","lat":-0.79,"lon":113.92,"spend":532.15,"region":"Southeast Asia"},
+          {"country":"Brunei","lat":4.54,"lon":114.73,"spend":484.02,"region":"Southeast Asia"},
+          {"country":"Vietnam","lat":14.06,"lon":108.28,"spend":603.72,"region":"Southeast Asia"},
+          {"country":"China","lat":35.86,"lon":104.19,"spend":661.35,"region":"East Asia"},
+          {"country":"Japan","lat":36.20,"lon":138.25,"spend":490.24,"region":"East Asia"},
+          {"country":"South Korea","lat":35.91,"lon":127.77,"spend":505.45,"region":"East Asia"},
+          {"country":"Taiwan","lat":23.70,"lon":120.96,"spend":600.88,"region":"East Asia"},
+          {"country":"India","lat":20.59,"lon":78.96,"spend":560.99,"region":"South Asia"},
+          {"country":"Saudi Arabia","lat":23.89,"lon":45.08,"spend":1069.95,"region":"Middle East"},
+          {"country":"Canada","lat":56.13,"lon":-106.35,"spend":436.00,"region":"Western Countries"},
+          {"country":"U.S.A","lat":37.09,"lon":-95.71,"spend":390.77,"region":"Western Countries"},
+          {"country":"Australia","lat":-25.27,"lon":133.78,"spend":778.12,"region":"Western Countries"},
+          {"country":"Sweden","lat":60.13,"lon":18.64,"spend":520.44,"region":"Western Countries"},
+          {"country":"United Kingdom","lat":55.38,"lon":-3.44,"spend":504.87,"region":"Western Countries"},
+          {"country":"Netherlands","lat":52.13,"lon":5.29,"spend":381.21,"region":"Western Countries"},
+          {"country":"France","lat":46.23,"lon":2.21,"spend":442.89,"region":"Western Countries"},
+          {"country":"Germany","lat":51.17,"lon":10.45,"spend":537.69,"region":"Western Countries"},
+          {"country":"Russia","lat":61.52,"lon":105.32,"spend":645.13,"region":"Western Countries"}
+        ]
+      },
+      "mark": {"type": "circle", "opacity": 0.8},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "size": {
+          "field": "spend", "type": "quantitative",
+          "scale": {"range": [150,3500]},
+          "legend": {"title": "Avg Daily Spend (RM)"}
+        },
+        "color": {
+          "field": "region", "type": "nominal",
+          "legend": {"title": "Region"}
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "spend", "title": "RM/day", "format": ".0f"},
+          {"field": "region", "title": "Region"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"country":"Saudi Arabia","lat":23.89,"lon":45.08},
+          {"country":"Singapore","lat":1.35,"lon":103.82},
+          {"country":"China","lat":35.86,"lon":104.19},
+          {"country":"Australia","lat":-25.27,"lon":133.78}
+        ]
+      },
+      "mark": {"type": "text", "dx": 8, "dy": -5, "fontSize": 10, "color": "#333"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "country", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {"background": "white", "view": {"stroke": null}}
+}

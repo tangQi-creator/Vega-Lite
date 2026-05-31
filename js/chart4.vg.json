@@ -1,0 +1,29 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 180,
+  "height": 360,
+  "data": {
+    "values": [
+      {"year":2015,"country":"Singapore","spend":691.64},{"year":2015,"country":"Thailand","spend":312.73},{"year":2015,"country":"Indonesia","spend":427.77},{"year":2015,"country":"Brunei","spend":934.70},{"year":2015,"country":"Vietnam","spend":480.68},{"year":2015,"country":"China","spend":589.53},{"year":2015,"country":"Japan","spend":533.84},{"year":2015,"country":"South Korea","spend":499.89},{"year":2015,"country":"Taiwan","spend":542.11},{"year":2015,"country":"India","spend":520.12},{"year":2015,"country":"Saudi Arabia","spend":912.67},{"year":2015,"country":"Canada","spend":450.86},{"year":2015,"country":"U.S.A","spend":501.02},{"year":2015,"country":"Australia","spend":773.03},{"year":2015,"country":"Sweden","spend":506.24},{"year":2015,"country":"United Kingdom","spend":601.64},{"year":2015,"country":"Netherlands","spend":429.80},{"year":2015,"country":"France","spend":456.21},{"year":2015,"country":"Germany","spend":440.66},{"year":2015,"country":"Russia","spend":696.99},
+      {"year":2016,"country":"Singapore","spend":720.65},{"year":2016,"country":"Thailand","spend":327.50},{"year":2016,"country":"Indonesia","spend":545.72},{"year":2016,"country":"Brunei","spend":720.25},{"year":2016,"country":"Vietnam","spend":406.58},{"year":2016,"country":"China","spend":746.18},{"year":2016,"country":"Japan","spend":525.97},{"year":2016,"country":"South Korea","spend":505.08},{"year":2016,"country":"Taiwan","spend":645.93},{"year":2016,"country":"India","spend":594.67},{"year":2016,"country":"Saudi Arabia","spend":943.12},{"year":2016,"country":"Canada","spend":501.67},{"year":2016,"country":"U.S.A","spend":520.55},{"year":2016,"country":"Australia","spend":591.89},{"year":2016,"country":"Sweden","spend":478.02},{"year":2016,"country":"United Kingdom","spend":691.96},{"year":2016,"country":"Netherlands","spend":391.97},{"year":2016,"country":"France","spend":406.13},{"year":2016,"country":"Germany","spend":429.12},{"year":2016,"country":"Russia","spend":658.02},
+      {"year":2017,"country":"Singapore","spend":575.77},{"year":2017,"country":"Thailand","spend":348.06},{"year":2017,"country":"Indonesia","spend":532.15},{"year":2017,"country":"Brunei","spend":484.02},{"year":2017,"country":"Vietnam","spend":603.72},{"year":2017,"country":"China","spend":661.35},{"year":2017,"country":"Japan","spend":490.24},{"year":2017,"country":"South Korea","spend":505.45},{"year":2017,"country":"Taiwan","spend":600.88},{"year":2017,"country":"India","spend":560.99},{"year":2017,"country":"Saudi Arabia","spend":1069.95},{"year":2017,"country":"Canada","spend":436.00},{"year":2017,"country":"U.S.A","spend":390.77},{"year":2017,"country":"Australia","spend":778.12},{"year":2017,"country":"Sweden","spend":520.44},{"year":2017,"country":"United Kingdom","spend":504.87},{"year":2017,"country":"Netherlands","spend":381.21},{"year":2017,"country":"France","spend":442.89},{"year":2017,"country":"Germany","spend":537.69},{"year":2017,"country":"Russia","spend":645.13},
+      {"year":2018,"country":"Singapore","spend":1069.94},{"year":2018,"country":"Thailand","spend":423.24},{"year":2018,"country":"Indonesia","spend":675.59},{"year":2018,"country":"Brunei","spend":889.12},{"year":2018,"country":"Vietnam","spend":645.76},{"year":2018,"country":"China","spend":685.14},{"year":2018,"country":"Japan","spend":641.37},{"year":2018,"country":"South Korea","spend":676.48},{"year":2018,"country":"Taiwan","spend":854.33},{"year":2018,"country":"India","spend":678.89},{"year":2018,"country":"Saudi Arabia","spend":1066.79},{"year":2018,"country":"Canada","spend":486.32},{"year":2018,"country":"U.S.A","spend":604.65},{"year":2018,"country":"Australia","spend":723.92},{"year":2018,"country":"Sweden","spend":646.06},{"year":2018,"country":"United Kingdom","spend":613.80},{"year":2018,"country":"Netherlands","spend":450.00},{"year":2018,"country":"France","spend":486.69},{"year":2018,"country":"Germany","spend":485.93},{"year":2018,"country":"Russia","spend":565.94}
+    ]
+  },
+  "mark": "rect",
+  "encoding": {
+    "x": {"field": "year", "type": "ordinal", "axis": {"title": "Year"}},
+    "y": {"field": "country", "type": "nominal", "axis": {"title": null}},
+    "color": {
+      "field": "spend", "type": "quantitative",
+      "scale": {"scheme": "blues"},
+      "legend": {"title": "RM/day"}
+    },
+    "tooltip": [
+      {"field": "country"},
+      {"field": "year", "type": "ordinal"},
+      {"field": "spend", "title": "RM/day", "format": ".0f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

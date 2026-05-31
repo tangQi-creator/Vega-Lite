@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 850,
+  "height": 300,
+  "data": {
+    "values": [
+      {"year":2016,"companion":"With Spouse","pct":31.86},
+      {"year":2016,"companion":"With Family","pct":26.32},
+      {"year":2016,"companion":"With Friends","pct":17.37},
+      {"year":2016,"companion":"Alone","pct":16.27},
+      {"year":2016,"companion":"With Children","pct":2.82},
+      {"year":2016,"companion":"With Business Associate","pct":2.76},
+      {"year":2017,"companion":"With Spouse","pct":55.68},
+      {"year":2017,"companion":"With Family","pct":8.74},
+      {"year":2017,"companion":"With Friends","pct":2.75},
+      {"year":2017,"companion":"Alone","pct":18.10},
+      {"year":2017,"companion":"With Children","pct":9.30},
+      {"year":2017,"companion":"With Business Associate","pct":3.76}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "companion", "type": "nominal",
+      "sort": {"field": "pct", "op": "sum", "order": "descending"},
+      "axis": {"title": null, "labelAngle": -20}
+    },
+    "y": {"field": "pct", "type": "quantitative", "axis": {"title": "%"}},
+    "xOffset": {"field": "year", "type": "nominal"},
+    "color": {
+      "field": "year", "type": "nominal",
+      "scale": {"domain": [2016,2017], "range": ["#C9A84C","#1A1A2E"]},
+      "legend": {"title": "Year"}
+    },
+    "tooltip": [
+      {"field": "companion", "title": "Travel With"},
+      {"field": "year"},
+      {"field": "pct", "title": "%", "format": ".1f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 850,
+  "height": 300,
+  "data": {
+    "values": [
+      {"year":2016,"occupation":"Professional/Technical","pct":25.58},
+      {"year":2016,"occupation":"Management/Admin","pct":23.53},
+      {"year":2016,"occupation":"Businessman","pct":12.95},
+      {"year":2016,"occupation":"Housewife","pct":7.09},
+      {"year":2016,"occupation":"Student","pct":5.30},
+      {"year":2016,"occupation":"Government","pct":5.64},
+      {"year":2017,"occupation":"Professional/Technical","pct":24.52},
+      {"year":2017,"occupation":"Management/Admin","pct":16.32},
+      {"year":2017,"occupation":"Businessman","pct":11.18},
+      {"year":2017,"occupation":"Housewife","pct":11.10},
+      {"year":2017,"occupation":"Student","pct":4.78},
+      {"year":2017,"occupation":"Government","pct":6.56}
+    ]
+  },
+  "mark": "bar",
+  "params": [{"name": "yr", "select": {"type": "point", "fields": ["year"]}, "bind": "legend"}],
+  "encoding": {
+    "x": {
+      "field": "occupation", "type": "nominal",
+      "sort": {"field": "pct", "op": "sum", "order": "descending"},
+      "axis": {"title": null, "labelAngle": -20}
+    },
+    "y": {"field": "pct", "type": "quantitative", "axis": {"title": "%"}},
+    "xOffset": {"field": "year", "type": "nominal"},
+    "color": {
+      "field": "year", "type": "nominal",
+      "scale": {"domain": [2016,2017], "range": ["#C9A84C","#1A1A2E"]},
+      "legend": {"title": "Year"}
+    },
+    "opacity": {"condition": {"param": "yr", "value": 1}, "value": 0.3},
+    "tooltip": [
+      {"field": "occupation"},
+      {"field": "year"},
+      {"field": "pct", "title": "%", "format": ".1f"}
+    ]
+  },
+  "config": {"background": "white", "view": {"stroke": null}}
+}
